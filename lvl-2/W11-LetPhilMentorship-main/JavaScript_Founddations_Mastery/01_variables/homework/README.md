@@ -70,7 +70,7 @@ Tonight's homework is exactly that, just smaller.
 
 ## ✅ Done When You Can
 
-- [ ] Complete all 8 tasks with correct output in the console
-- [ ] Fix all 3 debug tasks and explain each bug as a comment
-- [ ] Explain out loud (or in comments) why you chose `const` or `let` for each variable
-- [ ] Complete the stretch goal
+- [x] Complete all 8 tasks with correct output in the console
+- [x] Fix all 3 debug tasks and explain each bug as a comment
+- [x] Explain out loud (or in comments) why you chose `const` or `let` for each variable
+- [x] Complete the stretch goal

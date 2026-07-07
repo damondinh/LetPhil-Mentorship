@@ -23,6 +23,11 @@
 //
 // Log all four to the console.
 
+const fullName = "Damon Dinh"; // generally doesnt change unless someone name changes
+let age = 27; // changes every year
+let city = "Perth"; // can change when moving
+let isStudent = true; // can change after graduate
+
 // ----------------------------------------------------------
 // TASK 2 — Update what can change
 // ----------------------------------------------------------
@@ -33,6 +38,12 @@
 // Then try to reassign fullName.
 // Read the error, then comment that line out.
 
+// fullName = "Damon Nguyen"
+city = "Sydney";
+isStudent = !isStudent;
+console.log(city);
+console.log(isStudent);
+
 // ----------------------------------------------------------
 // TASK 3 — Undefined in the wild
 // ----------------------------------------------------------
@@ -41,6 +52,11 @@
 //
 // Now assign it a movie title.
 // Log it again.
+
+let favouriteMovie;
+console.log(favouriteMovie); // undefined
+favouriteMovie = "spiderman";
+console.log(favouriteMovie);
 
 // ----------------------------------------------------------
 // TASK 4 — Build a product listing
@@ -56,6 +72,12 @@
 // Log each variable on its own line.
 // Then log: productName + " by " + productBrand + " — $" + productPrice
 
+const productName = "dog food";
+const productBrand = "MyDog";
+const productPrice = 1.99;
+let inStock = true;
+console.log(productName + " by " + productBrand + " — $" + productPrice);
+
 // ----------------------------------------------------------
 // TASK 5 — Stock status update
 // ----------------------------------------------------------
@@ -67,6 +89,11 @@
 // Why did this fail but inStock worked?
 // Write your answer as a comment.
 
+inStock = false;
+console.log(`In stock: ` + inStock);
+//productName = "cat food";
+console.log(productName); // does not work because productName is a constant
+
 // ----------------------------------------------------------
 // TASK 6 — Fix the bad names
 // ----------------------------------------------------------
@@ -77,6 +104,11 @@
 //   my score      → fix it
 //   X             → rename to something descriptive, then declare it
 //   GaMeLeVeL     → fix the casing
+
+const secondPlayer = "damon";
+const myScore = 1;
+const firstPlayer = "dinh";
+const gameLevel = 2;
 
 // ----------------------------------------------------------
 // TASK 7 — Two-step declaration
@@ -92,6 +124,13 @@
 //
 // You should see three console lines: undefined → 500 → 750
 
+let highScore;
+console.log(highScore);
+highScore = 500;
+console.log(highScore);
+highScore = 750;
+console.log(highScore);
+
 // ----------------------------------------------------------
 // TASK 8 — Connect the variables
 // ----------------------------------------------------------
@@ -102,6 +141,11 @@
 //
 // Log: appName + " v" + version + " — built by " + authorName
 // Expected format: "TaskMaster v3 — built by [your name]"
+
+const appName = "TaskMaster";
+const version = 3;
+const authorName = "Damon";
+console.log(appName + " v" + version + " — built by " + authorName);
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL
@@ -115,3 +159,10 @@
 // Then reassign currentYear... wait, can you? Why not?
 // Write the answer as a comment.
 // What keyword would you need if currentYear could change?
+
+const startYear = 2020;
+const currentYear = 2025;
+let yearsRunning = currentYear - startYear;
+
+console.log(appName + " has been running for " + yearsRunning + " years.");
+// cannot reassign currentYear because its declared as a constant. Must change to a let to be reassignable.

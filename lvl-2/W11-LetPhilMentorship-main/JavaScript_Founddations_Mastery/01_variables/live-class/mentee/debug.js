@@ -8,18 +8,16 @@
 // Open DevTools (F12 → Console) to see errors and output.
 // ============================================================
 
-
 // ----------------------------------------------------------
 // 🟢 DEBUG 1 — Easy
 // ----------------------------------------------------------
 // This code throws an error. What's wrong?
 
-const greeting = "Hello, World!";
+let greeting = "Hello, World!";
 greeting = "Hi there!";
 console.log(greeting);
 
-// Your fix ↓
-
+// Your fix ↓ const cannot be reassigned.
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -28,10 +26,9 @@ console.log(greeting);
 
 let firstName = "Jordan";
 let lastName = "Smith";
-console.log("Full name: " + firstname + " " + lastName);
+console.log("Full name: " + firstName + " " + lastName);
 
-// Your fix ↓
-
+// Your fix ↓ Because the variable name firstName is not the same as the one on line 29.
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -39,13 +36,12 @@ console.log("Full name: " + firstname + " " + lastName);
 // There are TWO bugs in this snippet.
 // Find both, explain each one as a comment, then fix them.
 
-let Total = 100;
+let total = 100;
 let discount = 20;
 let finalPrice = total - discount;
 console.log("Your price is: $" + finalPrice);
 
-// Bug 1 explanation ↓
-
+// Bug 1 explanation ↓ Total on line 39 is different from the total on line 41
 // Bug 2 explanation ↓
 
-// Your fix ↓
+// Your fix ↓ calculation on line 41 now excutes.

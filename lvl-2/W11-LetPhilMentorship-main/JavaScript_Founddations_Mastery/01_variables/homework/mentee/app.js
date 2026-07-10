@@ -27,6 +27,10 @@ const fullName = "Damon Dinh"; // generally doesnt change unless someone name ch
 let age = 27; // changes every year
 let city = "Perth"; // can change when moving
 let isStudent = true; // can change after graduate
+console.log(fullName);
+console.log(age);
+console.log(city);
+console.log(isStudent);
 
 // ----------------------------------------------------------
 // TASK 2 — Update what can change
@@ -109,6 +113,10 @@ const secondPlayer = "damon";
 const myScore = 1;
 const firstPlayer = "dinh";
 const gameLevel = 2;
+console.log(secondPlayer);
+console.log(myScore);
+console.log(firstPlayer);
+console.log(gameLevel);
 
 // ----------------------------------------------------------
 // TASK 7 — Two-step declaration

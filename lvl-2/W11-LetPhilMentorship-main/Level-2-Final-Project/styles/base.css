@@ -1,0 +1,122 @@
+:root {
+	--base-clr: #11121a;
+	--line-clr: #42434a;
+	--hover-clr: #222533;
+	--text-clr: #e6e6ef;
+	--accent-clr: #5e63ff;
+	--secondary-text-clr: #b0b3c1;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-family: Poppins, sans-serif;
+	line-height: 1.5rem;
+}
+
+body {
+	min-height: 100vh;
+	min-height: 100dvh;
+	background-color: var(--base-clr);
+	color: var(--text-clr);
+	display: grid;
+	grid-template-columns: auto 1fr;
+}
+
+main {
+	min-width: 80%;
+	margin: 1rem auto;
+	padding: 1rem 5%;
+}
+
+.container {
+	margin-bottom: 20px;
+	padding: 16px;
+	border: solid 1px var(--line-clr);
+}
+
+.container-title {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.card {
+	padding: 16px;
+	border: solid 1px var(--line-clr);
+}
+
+ul {
+	list-style: none;
+}
+
+dialog {
+	margin: 100px auto auto auto;
+	inset: 0;
+	position: fixed;
+	padding: 16px;
+	border: none;
+}
+
+dialog .actions {
+	display: flex;
+	justify-content: end;
+	gap: 5px;
+}
+
+.text-logo {
+	font-size: 1.25rem;
+	font-weight: 500;
+	vertical-align: middle;
+}
+
+.text-th {
+	font-size: 1rem;
+	font-weight: 450;
+	color: var(--clr-grey-text);
+	padding: 10px 15px;
+}
+
+.text-h2 {
+	font-size: 1rem;
+	font-weight: 500;
+	color: var(--clr-grey-text);
+}
+
+.text-xl {
+	font-weight: bold;
+	font-size: 3rem;
+	line-height: 1.2;
+	font-weight: 500;
+	margin: 5px 0 5px;
+}
+
+.text-lg {
+	font-size: 1.7rem;
+	font-weight: 650;
+}
+
+.text-md {
+	font-size: 1.2rem;
+	line-height: 1.4;
+	font-weight: 400;
+	margin: 5px 0 5px;
+	color: var(--clr-grey-text);
+}
+
+.text-sm {
+	font-size: 0.97rem;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.coming-soon {
+	text-align: center;
+}

@@ -8,6 +8,7 @@
 }
 
 * {
+	box-sizing: border-box; /* width/height property includes content, padding and border, but not margin*/
 	margin: 0;
 	padding: 0;
 }
@@ -26,6 +27,7 @@ body {
 	grid-template-columns: auto 1fr;
 }
 
+/* SIDE BAR NAV */
 #sidebar {
 	box-sizing: border-box; /* forces the browser to include padding and borders within an elements total specified width and height*/
 	height: 100vh;
@@ -153,4 +155,141 @@ body {
 			display: none;
 		}
 	}
+}
+
+/* CAREER GOAL */
+.career-goal .container {
+	display: grid;
+	grid-template: auto 1fr / 1fr 1fr;
+}
+
+.career-goal .container .container-title {
+	grid-column: span 2;
+}
+
+.career-goal .container ul > li {
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+}
+
+/* EDIT NEXT CAREER GOAL- DIALOG */
+#careerGoalDialog .container {
+	margin-bottom: 0;
+	padding: 16px;
+	border: none;
+}
+#careerGoalDialog .form-container {
+	display: grid;
+	grid-template: 1fr 1fr 1fr / 1fr 1fr;
+	gap: 5px;
+	margin: 16px 0 16px 0;
+}
+#careerGoalDialog .form-container .form-group {
+	display: flex;
+	flex-direction: column;
+}
+#careerGoalDialog .form-container > :first-child {
+	grid-column: span 2;
+}
+#careerGoalDialog .actions {
+	display: flex;
+	justify-content: end;
+	gap: 5px;
+}
+
+/* TARGET COMPANY LIST */
+.target-companies .target-companies-table {
+	border: 1px solid var(--line-clr);
+	min-width: 100%;
+	text-align: left;
+}
+
+.target-companies-table .row {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 90px;
+}
+
+.target-companies .target-companies-table .row-content {
+	border-top: 1px solid var(--line-clr);
+	padding: 15px;
+	transition: background-color 0.3s ease;
+	align-items: center;
+}
+
+/* UTILITY */
+main {
+	min-width: 80%;
+	margin: 1rem auto;
+	padding: 1rem 5%;
+}
+
+.container {
+	margin-bottom: 20px;
+	padding: 16px;
+	border: solid 1px var(--line-clr);
+}
+
+.container-title {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+ul {
+	list-style: none;
+}
+
+dialog {
+	margin: 100px auto auto auto;
+	inset: 0;
+	position: fixed;
+}
+
+/* TEXT */
+.text-logo {
+	font-size: 1.25rem;
+	font-weight: 500;
+	vertical-align: middle;
+}
+
+.text-th {
+	font-size: 1rem;
+	font-weight: 450;
+	color: var(--clr-grey-text);
+	padding: 10px 15px;
+}
+.text-h2 {
+	font-size: 1rem;
+	font-weight: 500;
+	color: var(--clr-grey-text);
+}
+.text-xl {
+	font-weight: bold;
+	font-size: 3rem;
+	line-height: 1.2;
+	font-weight: 500;
+	margin: 5px 0 5px;
+}
+.text-lg {
+	font-size: 1.7rem;
+	font-weight: 650;
+}
+.text-md {
+	font-size: 1.2rem;
+	line-height: 1.4;
+	font-weight: 400;
+	margin: 5px 0 5px;
+	color: var(--clr-grey-text);
+}
+.text-sm {
+	font-size: 0.97rem;
+}
+
+.bold {
+	font-weight: bold;
+}
+.coming-soon {
+	text-align: center;
 }

@@ -1,0 +1,89 @@
+.career-goal .container {
+	display: grid;
+	grid-template: auto 1fr / 1fr 1fr;
+}
+
+.career-goal .container .container-title {
+	grid-column: span 2;
+}
+
+.career-goal .container ul > li {
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+}
+
+#careerGoalDialog .form-container {
+	display: grid;
+	grid-template: 1fr 1fr 1fr / 1fr 1fr;
+	gap: 5px;
+	margin: 16px 0 16px 0;
+}
+
+#careerGoalDialog .form-container .form-group {
+	display: flex;
+	flex-direction: column;
+}
+
+#careerGoalDialog .form-container > :first-child {
+	grid-column: span 2;
+}
+
+.target-companies .target-companies-table {
+	border: 1px solid var(--line-clr);
+	min-width: 100%;
+	text-align: left;
+	border-radius: 8px;
+}
+
+.target-companies-table .table-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr 90px 90px 90px 90px 1fr 90px;
+}
+
+.target-companies .target-companies-table .td:nth-child(3),
+.td:nth-child(4),
+.td:nth-child(5),
+.td:nth-child(6),
+.td:nth-child(8),
+.td:nth-last-child(1) {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+}
+
+.target-companies-table .table-content {
+	border-top: 1px solid var(--line-clr);
+	padding: 15px;
+	transition: background-color 0.3s ease;
+	align-items: center;
+	justify-content: center;
+}
+.table-content:hover {
+	background: var(--hover-clr);
+}
+
+#targetCompanyDialog .form-container {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	margin: 16px 0 16px 0;
+}
+
+#targetCompanyDialog .form-container .form-group {
+	display: flex;
+	flex-direction: column;
+}
+
+/* JOB TRACKER - Job tracker dashboard */
+.job-tracker-dashboard {
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+.job-tracker-dashboard > .container {
+	flex: 1;
+	text-align: center;
+}

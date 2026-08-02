@@ -9,15 +9,18 @@
 			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 			rel="stylesheet" />
 		<title>Document</title>
-		<link rel="stylesheet" href="style.css" />
-		<script type="text/javascript" src="app.js" defer></script>
+		<link rel="stylesheet" href="styles/base.css" />
+		<link rel="stylesheet" href="styles/layout.css" />
+		<link rel="stylesheet" href="styles/components.css" />
+		<script type="module" src="src/main.js"></script>
 	</head>
 	<body>
+		<!-- Side Nav Bar -->
 		<nav id="sidebar">
 			<ul>
 				<li>
 					<span class="logo">Job Tracker 2.0</span>
-					<button onclick="toggleSideBar()" id="toggle-btn">
+					<button id="toggleBtn">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height="24px"
@@ -40,7 +43,7 @@
 							<path
 								d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z" />
 						</svg>
-						<span>Dashboard</span>
+						<span>Goals</span>
 					</a>
 				</li>
 				<li>
@@ -55,7 +58,7 @@
 								d="M160-120q-33 0-56.5-23.5T80-200v-440q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v440q0 33-23.5 56.5T800-120H160Zm0-80h640v-440H160v440Zm240-520h160v-80H400v80ZM160-200v-440 440Z" />
 						</svg>
 
-						<span>Job Tracker</span>
+						<span>Jobs</span>
 					</a>
 				</li>
 				<li>
@@ -74,5 +77,153 @@
 				</li>
 			</ul>
 		</nav>
+
+		<main>
+			<!-- Career Goal -->
+			<section class="career-goal">
+				<div class="container">
+					<div class="container-title">
+						<p class="text-lg">
+							Career Goal: <span id="careerGoalTxt">Land a new job</span>
+						</p>
+						<button id="editCareerGoalBtn">edit</button>
+					</div>
+					<div>
+						<ul>
+							<li>
+								<p class="text-md bold">Current</p>
+							</li>
+							<li>
+								<p>>></p>
+								<p id="currTitleTxt">-</p>
+							</li>
+							<li>
+								<p>$</p>
+								<p id="currSalaryTxt">-</p>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<ul>
+							<li>
+								<p class="text-md bold">Target</p>
+							</li>
+							<li>
+								<p>>></p>
+								<p id="targetTitleTxt">-</p>
+							</li>
+							<li>
+								<p>$</p>
+								<p id="targetSalaryTxt">-</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<!-- Target Companies -->
+			<section class="target-companies">
+				<div class="container">
+					<div class="container-title">
+						<p class="text-lg">Target Company List</p>
+						<button id="addTargetCompanyBtn">Add</button>
+					</div>
+
+					<!-- Target Company Table -->
+					<div id="targetCompaniesTable" class="target-companies-table"></div>
+				</div>
+			</section>
+		</main>
+
+		<!-- Dialog: Edit Career Goal -->
+		<dialog id="careerGoalDialog" popover>
+			<!-- Header -->
+			<p class="text-lg">Set your next career goals</p>
+
+			<!-- Form -->
+			<form id="careerGoalForm">
+				<div class="form-container">
+					<div class="form-group">
+						<label>Next Career Goal</label>
+						<input
+							id="careerGoalInput"
+							type="text"
+							placeholder="eg. Land a new job" />
+					</div>
+					<div class="form-group">
+						<label>Current Title</label>
+						<input id="currTitleInput" type="text" />
+					</div>
+					<div class="form-group">
+						<label>Target Title</label>
+						<input id="targetTitleInput" type="text" />
+					</div>
+					<div class="form-group">
+						<label>Current Salary</label>
+						<input id="currSalaryInput" type="text" />
+					</div>
+					<div class="form-group">
+						<label>Target Salary</label>
+						<div>
+							<input id="targetMinSalaryInput" type="text" placeholder="min" />
+							<span>-</span>
+							<input id="targetMaxSalaryInput" type="text" placeholder="max" />
+						</div>
+					</div>
+				</div>
+
+				<!-- Dialog Actions -->
+				<div class="actions">
+					<button id="careerGoalDialogCloseBtn">Cancel</button>
+					<button type="submit">Save</button>
+				</div>
+			</form>
+		</dialog>
+
+		<!-- Dialog: Add/Edit Target Companies-->
+		<dialog id="targetCompanyDialog" popover>
+			<!-- Header -->
+			<p id="targetCompanyDialogTitle" class="text-lg">Add target company</p>
+
+			<!-- Form -->
+			<form id="targetCompanyForm">
+				<div class="form-container">
+					<div class="form-group">
+						<label>Company Name </label>
+						<input id="tgtCoCompanyInput" type="text" />
+					</div>
+					<div class="form-group">
+						<label>Industry</label>
+						<input id="tgtCoIndustryInput" type="text" />
+					</div>
+					<div class="form-group">
+						<label>Company Size</label>
+						<input id="tgtCoSizeInput" type="text" />
+					</div>
+					<div class="form-group">
+						<label>Location</label>
+						<input id="tgtCoLocationInput" type="text" />
+					</div>
+					<div class="form-group">
+						<label>Salary</label>
+						<input id="tgtCoSalaryInput" type="text" />
+					</div>
+					<div class="form-group">
+						<label>Rating</label>
+						<input id="tgtCoRatingInput" type="text" />
+					</div>
+					<div class="form-group">
+						<label>Hiring Manager</label>
+						<input id="tgtCoHiringManagerInput" type="text" />
+					</div>
+				</div>
+
+				<!-- Dialog Actions -->
+				<div class="actions">
+					<button id="targetCompanyDialogCloseBtn">Cancel</button>
+					<button type="submit">Save</button>
+				</div>
+			</form>
+		</dialog>
 	</body>
 </html>

@@ -43,4 +43,20 @@ export const elements = {
 
 	// Job Tracker Table Components
 	jobTrackerTable: document.getElementById('jobTrackerTable'),
+	addJobBtn: document.getElementById('addJobBtn'),
+
+	// Add/Edit Job Tracker Components
+	jobDetailDialog: document.getElementById('jobDetailDialog'),
+	jobDetailForm: document.getElementById('jobDetailForm'),
+	jobDetailCloseDialogBtn: document.getElementById('jobDetailCloseDialogBtn'),
+	jobDetailSubmitDialogBtn: document.getElementById('jobDetailSubmitDialogBtn'),
+	jobDetailDialogTitle: document.getElementById('jobDetailDialogTitle'),
+	jobDetailDialogDescription: document.getElementById(
+		'jobDetailDialogDescription',
+	),
+	jobDetailCompanyInput: document.getElementById('jobDetailCompanyInput'),
+	jobDetailPositionInput: document.getElementById('jobDetailPositionInput'),
+	jobDetailStatusSelect: document.getElementById('jobDetailStatusSelect'),
+	jobDetailApplicationDate: document.getElementById('jobDetailApplicationDate'),
+	jobDetailNotesTextArea: document.getElementById('jobDetailNotesTextArea'),
 };

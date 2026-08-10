@@ -103,22 +103,6 @@ function handleTargetCompanySubmit() {
 	renderTargetCompanies(targetCompanies);
 }
 
-function addTargetCompany() {
-	const newCompany = {
-		company: 'google',
-		industry: 'technology',
-		size: 3000,
-		location: 'Melbourne',
-		hiringManager: 'John Doe',
-		salary: 120000,
-		rating: 3.5,
-	};
-
-	targetCompanies.push(newCompany);
-	saveTargetCompanies(targetCompanies);
-	renderTargetCompanies(targetCompanies);
-}
-
 function openAddDialog() {
 	// 1. Update dialog title to add
 	elements.targetCompanyDialogTitle.innerText = 'Add target company';

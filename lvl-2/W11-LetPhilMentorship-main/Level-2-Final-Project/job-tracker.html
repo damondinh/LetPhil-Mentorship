@@ -32,7 +32,7 @@
 						</svg>
 					</button>
 				</li>
-				<li class="active">
+				<li>
 					<a href="index.html">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@
 
 		<main>
 			<!-- Dashboard (saved, applied, interview negotiate, accepted)-->
-			<section class="job-tracker-dashboard">
+			<div class="job-tracker-dashboard">
 				<div class="container">
 					<p class="text-md">Saved</p>
 					<p id="savedCount" class="text-xl">0</p>
@@ -100,13 +100,68 @@
 				<div class="container">
 					<p class="text-md">Accepted</p>
 					<p id="acceptedCount" class="text-xl">0</p>
-			</section>
+				</div>
+			</div>
+
+			<!-- Job Tracker Functions - Search filter & Add jobs -->
+			<div class="job-tracker-functions">
+				<input
+					id="searchInput"
+					class="search-bar"
+					type="text"
+					placeholder="Search by company or position..." />
+				<button id="addJobBtn">+ Add</button>
+			</div>
 
 			<!-- Job Tracker table -->
-			<section class="job-tracker-table">
-				<div id="jobTrackerTable" class="job-tracker-table"></div>
-
-			</section>
+			<div class="job-tracker-table">
+				<div id="jobTrackerTable" class="grid-table job-tracker-table"></div>
+			</div>
 		</main>
+
+		<!-- Add/Edit Job Details Dialog -->
+		 <dialog id="jobDetailDialog" popover>
+        <div>
+          <!-- Header -->
+          <h1 id="jobDetailDialogTitle" class="text-lg">Add New Application</h1>
+          <p id="jobDetailDialogDescription" class="text-sm text-grey">Track a new job application by filling out the details below.</p>
+
+          <!-- Form -->
+          <form id="jobDetailForm">
+            <div class="form-container">
+              <div class="form-group">
+                <label>Company Name</label>
+                <input id="jobDetailCompanyInput"  type="text" placeholder="e.g. Google" required/>
+              </div>
+              <div class="form-group">
+                <label>Position Title</label>
+                <input id="jobDetailPositionInput"  type="text" placeholder="e.g. Software Engineer" required/>
+              </div>
+              <div class="form-group">
+                <label>Status</label>
+                <select id="jobDetailStatusSelect">
+                  <option value="Applied">Applied</option>
+                  <option value="Interview">Interview</option>
+                  <option value="Offer">Offer</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Application Date</label>
+                <input id="jobDetailApplicationDate" type="date" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Notes</label>
+              <textarea id="jobDetailNotesTextArea" rows="5" cols="50"></textarea>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions">
+              <button id="jobDetailCloseDialogBtn" class="btn">Cancel</button>
+              <button id="jobDetailSubmitDialogBtn" class="btn btn-secondary" type="submit">Save</button>
+            </div>
+          </form>
+      </dialog>
 	</body>
 </html>

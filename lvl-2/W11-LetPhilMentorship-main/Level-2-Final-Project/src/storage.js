@@ -1,5 +1,6 @@
 const TARGET_COMPANIES_KEY = 'savedTargetCompanies';
 const CAREER_GOAL_KEY = 'savedCareerGoals';
+const JOBS_KEY = 'savedJobs';
 
 const defaultCareerGoal = {
 	goal: 'Land a new job',
@@ -33,7 +34,7 @@ export function loadCareerGoal() {
 	const savedCareerGoal = localStorage.getItem(CAREER_GOAL_KEY);
 
 	if (!savedCareerGoal) {
-		return { ...defaultCareerGoal }; // spread operator creates a copy of object
+		return { ...defaultCareerGoal }; // spread operator returns a copy of object
 	}
 
 	try {
@@ -46,4 +47,23 @@ export function loadCareerGoal() {
 
 export function saveCareerGoal(careerGoal) {
 	localStorage.setItem(CAREER_GOAL_KEY, JSON.stringify(careerGoal));
+}
+
+export function loadJobs() {
+	const savedJobs = localStorage.getItem(JOBS_KEY);
+
+	if (!savedJobs) {
+		return [];
+	}
+
+	try {
+		return JSON.parse(savedJobs);
+	} catch (error) {
+		console.error('Failed to parse saved jobs', error);
+		return [];
+	}
+}
+
+export function saveJobs(jobs) {
+	localStorage.setItem(JOBS_KEY, JSON.stringify(jobs));
 }

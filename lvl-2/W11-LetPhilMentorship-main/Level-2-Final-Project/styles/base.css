@@ -28,7 +28,7 @@ body {
 }
 
 main {
-	min-width: 80%;
+	min-width: 95%;
 	margin: 1rem auto;
 	padding: 1rem 5%;
 }
@@ -49,6 +49,36 @@ main {
 .card {
 	padding: 16px;
 	border: solid 1px var(--line-clr);
+}
+
+.grid-table {
+	border: 1px solid var(--line-clr);
+	min-width: 100%;
+	text-align: left;
+	border-radius: 8px;
+}
+
+.grid-table .table-content {
+	border-top: 1px solid var(--line-clr);
+	padding: 15px;
+	transition: background-color 0.3s ease;
+	align-items: center;
+	justify-content: center;
+}
+
+.grid-notes {
+	width: 250px; /* Set a strict boundary */
+	white-space: nowrap; /* Keep all text on one single line */
+	overflow: hidden; /* Hide text that doesn't fit */
+	text-overflow: ellipsis; /* Add the "..." indicator */
+}
+
+.table-content:hover {
+	background: var(--hover-clr);
+}
+
+.td {
+	padding: 2px;
 }
 
 ul {

@@ -114,14 +114,26 @@ function handleJobSubmit() {
 
 	// 2. Add or update job application
 	if (mode === 'add') {
+		// update UI
+		jobstoRender.push(newJobApplication);
+
+		// update jobs
 		jobs.push(newJobApplication);
 	} else if (mode === 'edit') {
+		// update UI
+		const selectedJob = jobs[index];
+		const jobsToRenderIndex = jobsToRender.findIndex(
+			(job) => job.company === selectedJob.company && selectedJob.position,
+		);
+		jobsToRender[jobsToRenderIndex] = newJobApplication;
+
+		// update jobs
 		jobs[index] = newJobApplication;
 	}
 
 	// 3. Save and render job applications
 	saveJobs(jobs);
-	renderJobs(jobs);
+	renderJobs(jobsToRender);
 }
 
 function openAddDialog() {

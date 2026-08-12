@@ -1,7 +1,8 @@
 import { elements } from '../dom.js';
 import { loadJobs, saveJobs } from '../storage.js';
 
-let jobs = [];
+let jobs = []; // copy of local storage
+let jobsToRender = []; // displayed to the UI
 
 function renderJobs(jobsRendered) {
 	// 1. Validate table exists
@@ -65,11 +66,18 @@ function initializeDeleteButtons() {
 	const deleteBtns = document.querySelectorAll('.btn-delete');
 	deleteBtns.forEach((btn) => {
 		btn.addEventListener('click', function () {
-			// TODO: Change to get jobs id?
-			const index = this.getAttribute('data-index');
-			jobs.splice(index, 1);
+			// 2. Find selected job in jobs array to delete
+			const selectedIndex = this.getAttribute('data-index');
+			const selectedJob = jobsToRender[selectedIndex];
+			const jobsIndex = jobs.findIndex(
+				(job) => job.company === selectedJob.company && selectedJob.position,
+			);
+
+			// 3. Delete, save to local storage and render to UI
+			jobs.splice(jobsIndex, 1);
+			jobsToRender.splice(selectedIndex, 1);
 			saveJobs(jobs);
-			renderJobs(jobs);
+			renderJobs(jobsToRender);
 		});
 	});
 }
@@ -79,9 +87,15 @@ function initializeEditButtons() {
 	const editBtns = document.querySelectorAll('.btn-edit');
 	editBtns.forEach((btn) => {
 		btn.addEventListener('click', function () {
-			// TODO: Change to get jobs id?
-			const index = this.getAttribute('data-index');
-			openEditDialog(index);
+			// 2. Find selected job in jobs array to edit
+			const selectedIndex = this.getAttribute('data-index');
+			const selectedJob = jobsToRender[selectedIndex];
+			const jobsIndex = jobs.findIndex(
+				(job) => job.company === selectedJob.company && selectedJob.position,
+			);
+
+			// 3. Open edit dialog to edit
+			openEditDialog(jobsIndex);
 		});
 	});
 }
@@ -148,24 +162,26 @@ function closeDialog() {
 function filterJobsByCompanyOrPosition() {
 	const query = jobTrackerSearchInput.value.toLowerCase().trim();
 	if (query === '') {
-		renderJobs(jobs);
+		jobsToRender = structuredClone(jobs);
+		renderJobs(jobsToRender);
 	} else {
-		const filteredJobs = jobs.filter(
+		jobsToRender = jobs.filter(
 			(job) =>
 				job.company.toLowerCase().includes(query) ||
 				job.position.toLowerCase().includes(query),
 		);
-		renderJobs(filteredJobs);
+		renderJobs(jobsToRender);
 	}
 }
 
 function filterJobsByStatus() {
 	const selectedFilter = elements.jobTrackerFilterSelect.value.trim();
 	if (selectedFilter === 'All') {
-		renderJobs(jobs);
+		jobsToRender = structuredClone(jobs);
+		renderJobs(jobsToRender);
 	} else {
-		const filteredJobs = jobs.filter((job) => job.status === selectedFilter);
-		renderJobs(filteredJobs);
+		jobsToRender = jobs.filter((job) => job.status === selectedFilter);
+		renderJobs(jobsToRender);
 	}
 }
 
@@ -203,7 +219,8 @@ function renderJobsTotalCount() {
 
 export function initializeJobTracker() {
 	jobs = loadJobs();
-	renderJobs(jobs);
+	jobsToRender = structuredClone(jobs);
+	renderJobs(jobsToRender);
 
 	if (elements.addJobBtn) {
 		elements.addJobBtn.addEventListener('click', openAddDialog);

@@ -27,6 +27,24 @@ function renderJobs() {
   // 4. render each job as a row from jobsToRender
 }
 
+filterJobsByCompanyOrPosition()
+  // 1. lowercase and trim query
+  // 2. IF query empty ->
+          copy jobs to jobsToRender
+          render jobsToRender
+  // 3. ELSE -> filter jobsToRender and render
+          filter jobs then copy to jobsToRender
+          render jobsToRender
+
+filterJobsByStatus()
+  // 1. lowercase and trim selected status filter
+  // 2. IF selectedFilter === 'All' ->
+          copy jobs to jobsToRender
+          render jobsToRender
+  // 3. ELSE -> filter jobsToRender and render
+          filter jobs then copy to jobsToRender
+          render jobsToRender
+
 function delete()
   // 1. get index from jobsToRender
   // 2. get the job object's company and position
@@ -39,14 +57,17 @@ function delete()
 function edit()
   // 1. get index from jobsToRender
   // 2. get the job object's company and position
-        and search for it's index in jobs -> filter / for loop
+        and search for it's index in jobs -> findIndex
           | n: # of job apps  | time: O(n) | space: O(n) |
   // 3. openEditDialog(index) (passing index from jobs)
 
-function searchJobIndex(company, position) => jobIndex
-  for (i=0; i<jobs;i++)
-    if job.company == company AND job.position == position
-      return i
-  return -1
+Method 1
+  function searchJobIndex(company, position) => jobIndex
+    for (i=0; i<jobs;i++)
+      if job.company == company AND job.position == position
+        return i
+    return -1
 
-
+Method 2
+  selectedJob = jobsToRender[selectedIndex]
+  const index = jobs.findIndex(job => job.company === selectedJob.company && job.position === selectedJob.position);

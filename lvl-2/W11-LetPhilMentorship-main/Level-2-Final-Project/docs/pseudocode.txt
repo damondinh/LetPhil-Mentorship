@@ -1,0 +1,52 @@
+/*****************************************************************
+Issue:
+  Filtering Bug => Edit/Delete do not target the correct job after
+  filtering by search/dropdown
+Cause:
+  Due to Edit/Delete buttons targeting jobs by array index
+Fix:
+  Create a seperate jobstoRenderArray to store filteredJobs.
+  When editing/deleting, search jobs array using company name and
+  position to get index and mutate jobs.
+******************************************************************/
+
+let jobs = [] // actual data saved into local storage
+let jobsToRender = [] // rendered jobs to UI for filtering purposes
+
+function initializeJobTracker() {
+  // 1. jobs <= load jobs from local storage
+  // 2. jobsToRender <= copy of jobs
+  // 3. render jobs
+  // 4. add event listeners
+}
+
+function renderJobs() {
+  // 1. validate table exists
+  // 2. clear the table data
+  // 3. render table headers
+  // 4. render each job as a row from jobsToRender
+}
+
+function delete()
+  // 1. get index from jobsToRender
+  // 2. get the job object's company and position
+        and search for it's index in jobs -> filter / for loop
+          | n: # of job apps  | time: O(n) | space: O(n) |
+  // 3. splice jobs to delete
+  // 4. save jobs to local storage
+  // 5. render jobs
+
+function edit()
+  // 1. get index from jobsToRender
+  // 2. get the job object's company and position
+        and search for it's index in jobs -> filter / for loop
+          | n: # of job apps  | time: O(n) | space: O(n) |
+  // 3. openEditDialog(index) (passing index from jobs)
+
+function searchJobIndex(company, position) => jobIndex
+  for (i=0; i<jobs;i++)
+    if job.company == company AND job.position == position
+      return i
+  return -1
+
+

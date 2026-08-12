@@ -45,6 +45,10 @@ export const elements = {
 	jobTrackerTable: document.getElementById('jobTrackerTable'),
 	addJobBtn: document.getElementById('addJobBtn'),
 
+	// Job Tracker Search/Filter Components
+	jobTrackerSearchInput: document.getElementById('jobTrackerSearchInput'),
+	jobTrackerFilterSelect: document.getElementById('jobTrackerFilterSelect'),
+
 	// Add/Edit Job Tracker Components
 	jobDetailDialog: document.getElementById('jobDetailDialog'),
 	jobDetailForm: document.getElementById('jobDetailForm'),
@@ -59,4 +63,11 @@ export const elements = {
 	jobDetailStatusSelect: document.getElementById('jobDetailStatusSelect'),
 	jobDetailApplicationDate: document.getElementById('jobDetailApplicationDate'),
 	jobDetailNotesTextArea: document.getElementById('jobDetailNotesTextArea'),
+
+	// Job Tracker Dashboard
+	appliedCount: document.getElementById('appliedCount'),
+	interviewCount: document.getElementById('interviewCount'),
+	offerCount: document.getElementById('offerCount'),
+	acceptedCount: document.getElementById('acceptedCount'),
+	totalCount: document.getElementById('totalCount'),
 };

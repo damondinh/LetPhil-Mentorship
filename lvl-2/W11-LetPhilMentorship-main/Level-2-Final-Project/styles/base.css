@@ -21,6 +21,7 @@ html {
 body {
 	min-height: 100vh;
 	min-height: 100dvh;
+	line-height: 1.5;
 	background-color: var(--base-clr);
 	color: var(--text-clr);
 	display: grid;
@@ -55,7 +56,7 @@ main {
 	border: 1px solid var(--line-clr);
 	min-width: 100%;
 	text-align: left;
-	border-radius: 8px;
+	/* border-radius: 8px; */
 }
 
 .grid-table .table-content {
@@ -66,6 +67,10 @@ main {
 	justify-content: center;
 }
 
+.table-content:hover {
+	background: var(--hover-clr);
+}
+
 .grid-notes {
 	width: 250px; /* Set a strict boundary */
 	white-space: nowrap; /* Keep all text on one single line */
@@ -73,12 +78,20 @@ main {
 	text-overflow: ellipsis; /* Add the "..." indicator */
 }
 
-.table-content:hover {
-	background: var(--hover-clr);
+.td {
+	padding: 0 0 0 5px;
 }
 
-.td {
-	padding: 2px;
+.search-bar {
+	border: 1px solid var(--line-clr);
+	background-color: var(--base-clr);
+	color: white;
+}
+
+.search-filter {
+	border: 1px solid var(--line-clr);
+	background-color: var(--base-clr);
+	color: white;
 }
 
 ul {
@@ -97,6 +110,16 @@ dialog .actions {
 	display: flex;
 	justify-content: end;
 	gap: 5px;
+}
+
+textarea,
+input,
+select {
+	font-family: 'Roboto', sans-serif;
+	font-size: 1rem;
+	line-height: 1.4;
+	font-weight: 400;
+	padding: 0.5rem 1rem;
 }
 
 .text-logo {

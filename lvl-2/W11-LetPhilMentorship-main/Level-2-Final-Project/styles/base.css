@@ -4,6 +4,7 @@
 	--hover-clr: #222533;
 	--text-clr: #e6e6ef;
 	--accent-clr: #5e63ff;
+	--secondary-clr: #42434a;
 	--secondary-text-clr: #b0b3c1;
 }
 
@@ -44,10 +45,12 @@ main {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin-bottom: 10px;
+	border: solid 1px var(--line-clr);
+	border-bottom: none;
+	padding: 16px;
 }
 
-.card {
+.container-content .card {
 	padding: 16px;
 	border: solid 1px var(--line-clr);
 }
@@ -105,6 +108,33 @@ dialog .actions {
 	gap: 5px;
 }
 
+/* Buttons */
+.btn {
+	display: inline-block;
+	font-size: 1rem;
+	border: 0px;
+	border-radius: 4px;
+	padding: 0.5rem 0.5rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+.btn:hover {
+	opacity: 0.5;
+}
+.btn-primary {
+	background-color: var(--accent-clr);
+	color: var(--text-clr);
+}
+.btn-secondary {
+	background-color: var(--secondary-clr);
+	color: var(--text-clr);
+}
+
+.btn-action {
+	background-color: var(--base-clr);
+}
+
+/* Texts */
 textarea,
 input,
 select {

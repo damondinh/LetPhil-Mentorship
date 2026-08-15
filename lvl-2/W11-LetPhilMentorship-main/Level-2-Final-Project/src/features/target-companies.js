@@ -42,8 +42,8 @@ function renderTargetCompanies(companiesToRender = targetCompanies) {
 			<div class="td text-sm">${company.rating}</div>
 			<div class="td text-sm">${company.hiringManager}</div>
 			<div class="td">
-				<button class="btn-edit btn-row" data-index="${index}">✏️</button>
-				<button class="btn-delete btn-row" data-index="${index}">🗑️</button>
+				<button class="btn btn-edit btn-action" data-index="${index}">✏️</button>
+				<button class="btn btn-delete btn-action" data-index="${index}">🗑️</button>
 			</div>`;
 		elements.targetCompaniesTable.appendChild(companyRow);
 	});

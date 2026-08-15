@@ -39,8 +39,8 @@ function renderJobs(jobsRendered) {
                         <div class="td text-sm">${formatDate(job.date)}</div>
 												<div class="td text-sm"><p class="grid-notes">${job.notes}</p></div>
 												<div class="td">
-                          <button class="btn-edit btn-row" data-index="${index}">✏️</button>
-                          <button class="btn-delete btn-row" data-index="${index}">🗑️</button>
+                          <button class="btn-edit btn btn-action" data-index="${index}">✏️</button>
+                          <button class="btn-delete btn btn-action" data-index="${index}">🗑️</button>
                         </div>`;
 		elements.jobTrackerTable.appendChild(jobRow);
 	});
@@ -115,7 +115,7 @@ function handleJobSubmit() {
 	// 2. Add or update job application
 	if (mode === 'add') {
 		// update UI
-		jobstoRender.push(newJobApplication);
+		jobsToRender.push(newJobApplication);
 
 		// update jobs
 		jobs.push(newJobApplication);

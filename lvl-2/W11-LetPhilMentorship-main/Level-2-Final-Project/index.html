@@ -81,13 +81,15 @@
 		<main>
 			<!-- Career Goal -->
 			<section class="career-goal">
+				<div class="container-title">
+					<p class="text-lg">
+						Career Goal: <span id="careerGoalTxt">Land a new job</span>
+					</p>
+					<button id="editCareerGoalBtn" class="btn btn-primary">
+						Edit Goals
+					</button>
+				</div>
 				<div class="container">
-					<div class="container-title">
-						<p class="text-lg">
-							Career Goal: <span id="careerGoalTxt">Land a new job</span>
-						</p>
-						<button id="editCareerGoalBtn">edit</button>
-					</div>
 					<div>
 						<ul>
 							<li>
@@ -123,17 +125,17 @@
 
 			<!-- Target Companies -->
 			<section class="target-companies">
-				<div class="container">
-					<div class="container-title">
-						<p class="text-lg">Target Company List</p>
-						<button id="addTargetCompanyBtn">Add</button>
-					</div>
-
-					<!-- Target Company Table -->
-					<div
-						id="targetCompaniesTable"
-						class="grid-table target-companies-table"></div>
+				<div class="container-title">
+					<p class="text-lg">Target Company List</p>
+					<button id="addTargetCompanyBtn" class="btn btn-primary">
+						+ Add Target Company
+					</button>
 				</div>
+
+				<!-- Target Company Table -->
+				<div
+					id="targetCompaniesTable"
+					class="grid-table target-companies-table"></div>
 			</section>
 		</main>
 
@@ -146,26 +148,26 @@
 			<form id="careerGoalForm">
 				<div class="form-container">
 					<div class="form-group">
-						<label>Next Career Goal</label>
+						<label class="bold">Next Career Goal</label>
 						<input
 							id="careerGoalInput"
 							type="text"
 							placeholder="eg. Land a new job" />
 					</div>
 					<div class="form-group">
-						<label>Current Title</label>
+						<label class="bold">Current Title</label>
 						<input id="currTitleInput" type="text" />
 					</div>
 					<div class="form-group">
-						<label>Target Title</label>
+						<label class="bold">Target Title</label>
 						<input id="targetTitleInput" type="text" />
 					</div>
 					<div class="form-group">
-						<label>Current Salary</label>
+						<label class="bold">Current Salary</label>
 						<input id="currSalaryInput" type="text" />
 					</div>
 					<div class="form-group">
-						<label>Target Salary</label>
+						<label class="bold">Target Salary</label>
 						<div>
 							<input id="targetMinSalaryInput" type="text" placeholder="min" />
 							<span>-</span>
@@ -191,39 +193,41 @@
 			<form id="targetCompanyForm">
 				<div class="form-container">
 					<div class="form-group">
-						<label>Company Name </label>
+						<label class="bold">Company Name </label>
 						<input id="tgtCoCompanyInput" type="text" />
 					</div>
 					<div class="form-group">
-						<label>Industry</label>
+						<label class="bold">Industry</label>
 						<input id="tgtCoIndustryInput" type="text" />
 					</div>
 					<div class="form-group">
-						<label>Company Size</label>
+						<label class="bold">Company Size</label>
 						<input id="tgtCoSizeInput" type="text" />
 					</div>
 					<div class="form-group">
-						<label>Location</label>
+						<label class="bold">Location</label>
 						<input id="tgtCoLocationInput" type="text" />
 					</div>
 					<div class="form-group">
-						<label>Salary</label>
+						<label class="bold">Salary</label>
 						<input id="tgtCoSalaryInput" type="text" />
 					</div>
 					<div class="form-group">
-						<label>Rating</label>
+						<label class="bold">Rating</label>
 						<input id="tgtCoRatingInput" type="text" />
 					</div>
 					<div class="form-group">
-						<label>Hiring Manager</label>
+						<label class="bold">Hiring Manager</label>
 						<input id="tgtCoHiringManagerInput" type="text" />
 					</div>
 				</div>
 
 				<!-- Dialog Actions -->
 				<div class="actions">
-					<button id="targetCompanyDialogCloseBtn">Cancel</button>
-					<button type="submit">Save</button>
+					<button id="targetCompanyDialogCloseBtn" class="btn btn-secondary">
+						Cancel
+					</button>
+					<button class="btn btn-primary" type="submit">Save</button>
 				</div>
 			</form>
 		</dialog>

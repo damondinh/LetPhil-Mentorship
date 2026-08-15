@@ -131,6 +131,21 @@
 	flex-grow: 1;
 }
 
+/* JOB TRACKER DETAIL FORM (ADD/EDIT)*/
+.form-group {
+	display: flex;
+	flex-direction: column;
+}
+
+#jobDetailForm {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(7, auto);
+	gap: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
 /* CONTACT US FORM */
 #contactUsForm {
 	display: grid;
@@ -141,10 +156,6 @@
 	padding: 10px;
 }
 
-#contactUsForm .form-group {
-	display: flex;
-	flex-direction: column;
-}
 #contactUsForm .form-group:nth-child(1) {
 	grid-column: 1 / 3;
 	grid-row: 1;
@@ -156,4 +167,8 @@
 #contactUsForm .form-group:nth-child(5) {
 	grid-column: 1 / 3;
 	grid-row: 4;
+}
+#contactUsForm .form-group:nth-child(6) {
+	grid-column: 1 / 3;
+	grid-row: 5;
 }

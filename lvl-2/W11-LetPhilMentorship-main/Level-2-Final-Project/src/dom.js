@@ -70,4 +70,12 @@ export const elements = {
 	offerCount: document.getElementById('offerCount'),
 	acceptedCount: document.getElementById('acceptedCount'),
 	totalCount: document.getElementById('totalCount'),
+
+	// Contact Us Form
+	contactUsForm: document.getElementById('contactUsForm'),
+	contactName: document.getElementById('contactName'),
+	contactEmail: document.getElementById('contactEmail'),
+	contactSubject: document.getElementById('contactSubject'),
+	contactMessage: document.getElementById('contactMessage'),
+	contactSubmitButton: document.getElementById('contactSubmitButton'),
 };

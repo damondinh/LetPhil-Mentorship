@@ -1,6 +1,7 @@
 const TARGET_COMPANIES_KEY = 'savedTargetCompanies';
 const CAREER_GOAL_KEY = 'savedCareerGoals';
 const JOBS_KEY = 'savedJobs';
+const CONTACT_MESSAGE_KEY = 'savedContactMessages';
 
 const defaultCareerGoal = {
 	goal: 'Land a new job',
@@ -66,4 +67,22 @@ export function loadJobs() {
 
 export function saveJobs(jobs) {
 	localStorage.setItem(JOBS_KEY, JSON.stringify(jobs));
+}
+
+export function loadContactMessages() {
+	const savedContactMessages = localStorage.getItem(CONTACT_MESSAGE_KEY);
+	if (!savedContactMessages) {
+		return [];
+	}
+
+	try {
+		return JSON.parse(savedContactMessages);
+	} catch (error) {
+		console.error('Failed to parse contact messages', error);
+		return [];
+	}
+}
+
+export function saveContactMessage(message) {
+	localStorage.setItem(CONTACT_MESSAGE_KEY, JSON.stringify(message));
 }

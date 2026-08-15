@@ -74,8 +74,8 @@ function initializeDeleteButtons() {
 			);
 
 			// 3. Delete, save to local storage and render to UI
-			jobs.splice(jobsIndex, 1);
-			jobsToRender.splice(selectedIndex, 1);
+			jobs.splice(jobsIndex, 1); // update jobs
+			jobsToRender.splice(selectedIndex, 1); // update UI
 			saveJobs(jobs);
 			renderJobs(jobsToRender);
 		});

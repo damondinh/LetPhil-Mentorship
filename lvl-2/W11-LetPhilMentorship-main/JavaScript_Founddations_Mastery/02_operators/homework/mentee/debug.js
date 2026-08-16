@@ -5,21 +5,24 @@
 // Explain what was wrong as a comment. Then fix it.
 // ============================================================
 
-
 // ----------------------------------------------------------
 // 🟢 DEBUG 1 — Easy
 // ----------------------------------------------------------
 // This should calculate a 15% tip but the result is wrong.
 
-const billAmount = 80;
-const tipPercent = 15;
-const tipAmount  = billAmount % tipPercent;
-console.log("Tip: $" + tipAmount);
+// const billAmount = 80;
+// const tipPercent = 15;
+// const tipAmount  = billAmount % tipPercent;
+// console.log("Tip: $" + tipAmount);
 
 // What's wrong ↓
+// tipPercent should be 0.15 and tipAmount should be billAmount * tipPercent
 
 // Your fix ↓
-
+const billAmount = 80;
+const tipPercent = 0.15;
+const tipAmount = billAmount * tipPercent;
+console.log('Tip: $' + tipAmount);
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -27,16 +30,20 @@ console.log("Tip: $" + tipAmount);
 // The developer wants to track a countdown timer.
 // Something is wrong with how the variable is declared.
 
-const countdown = 10;
-countdown -= 1;
-countdown -= 1;
-countdown -= 1;
-console.log("Countdown: " + countdown);
+// const countdown = 10;
+// countdown -= 1;
+// countdown -= 1;
+// countdown -= 1;
+// console.log('Countdown: ' + countdown);
 
 // What's wrong ↓
-
+// countdown should be a let variable as it is being reassigned
 // Your fix ↓
-
+let countdown = 10;
+countdown -= 1;
+countdown -= 1;
+countdown -= 1;
+console.log('Countdown: ' + countdown);
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -46,14 +53,20 @@ console.log("Countdown: " + countdown);
 // There are also two style issues (not errors, but bad practice).
 // Find the logic bug AND the two style issues.
 
-var username1 = "gamer99";
-var username2 = "Gamer99";
-console.log("Names match: " + (username1 == username2));
+// var username1 = 'gamer99';
+// var username2 = 'Gamer99';
+// console.log('Names match: ' + (username1 == username2));
 
 // Logic bug ↓
+// mismatch case type on the letter 'g'
 
 // Style issue 1 ↓
+// let should be used instead of var for username1
 
 // Style issue 2 ↓
+// let should be used instead of var for username2
 
 // Your fix ↓
+let username1 = 'Gamer99';
+let username2 = 'Gamer99';
+console.log('Names match: ' + (username1 == username2));

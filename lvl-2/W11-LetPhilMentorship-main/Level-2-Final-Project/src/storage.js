@@ -2,6 +2,7 @@ const TARGET_COMPANIES_KEY = 'savedTargetCompanies';
 const CAREER_GOAL_KEY = 'savedCareerGoals';
 const JOBS_KEY = 'savedJobs';
 const CONTACT_MESSAGE_KEY = 'savedContactMessages';
+const SETTINGS_KEY = 'savedSettings';
 
 const defaultCareerGoal = {
 	goal: 'Land a new job',

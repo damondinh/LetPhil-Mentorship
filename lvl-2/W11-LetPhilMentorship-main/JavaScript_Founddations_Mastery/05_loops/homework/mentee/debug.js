@@ -5,21 +5,22 @@
 // Explain what was wrong as a comment. Then fix it.
 // ============================================================
 
-
 // ----------------------------------------------------------
 // 🟢 DEBUG 1 — Easy
 // ----------------------------------------------------------
 // This loop should log numbers 1 through 10.
 // It only logs 1 through 9. What's wrong?
 
-for (let i = 1; i < 10; i++) {
-  console.log(i);
-}
+// for (let i = 1; i < 10; i++) {
+// 	console.log(i);
+// }
 
 // What's wrong ↓
-
+// for loop i < 10 does not include 10
 // Your fix ↓
-
+for (let i = 1; i <= 10; i++) {
+	console.log(i);
+}
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -27,17 +28,20 @@ for (let i = 1; i < 10; i++) {
 // This loop should calculate the sum of 1 through 5 (answer: 15).
 // It always logs 0. What's wrong?
 
-for (let i = 1; i <= 5; i++) {
-  let total = 0;
-  total += i;
-}
-console.log("Sum: " + total);
+// for (let i = 1; i <= 5; i++) {
+// 	let total = 0;
+// 	total += i;
+// }
+// console.log('Sum: ' + total);
 
 // What's wrong ↓
-
+// total declared inside the loop, reseting it to zero after every iteration
 // Your fix ↓
-
-
+let total = 0;
+for (let i = 1; i <= 5; i++) {
+	total += i;
+}
+console.log('Sum: ' + total);
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
 // ----------------------------------------------------------
@@ -46,17 +50,25 @@ console.log("Sum: " + total);
 // Instead it logs nothing and skips straight to "Done!".
 // There are TWO bugs. Find both.
 
-for (let i = 1; i <= 10; i++) {
-  if (i % 2 === 0) {
-    console.log(i);
-  } else {
-    continue;
-  }
-}
-console.log("Done!");
+// for (let i = 1; i <= 10; i++) {
+// 	if (i % 2 === 0) {
+// 		console.log(i);
+// 	} else {
+// 		continue;
+// 	}
+// }
+// console.log('Done!');
 
 // Bug 1 ↓
-
+// incorrect logic for odd numbers. Shoudl be if i % 2 not equal to 0
 // Bug 2 ↓
 
 // Your fix ↓
+for (let i = 1; i <= 10; i++) {
+	if (i % 2 !== 0) {
+		console.log(i);
+	} else {
+		continue;
+	}
+}
+console.log('Done!');

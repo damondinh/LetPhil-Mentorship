@@ -5,27 +5,32 @@
 // Explain what was wrong as a comment. Then fix it.
 // ============================================================
 
-
 // ----------------------------------------------------------
 // 🟢 DEBUG 1 — Easy
 // ----------------------------------------------------------
 // This should log "Pass" when score is 70, but it always
 // logs "Pass" even when score is 30. Why?
 
+// let score = 30;
+// const passing = 60;
+
+// if ((score = passing)) {
+// 	console.log('Pass ✅');
+// } else {
+// 	console.log('Fail ❌');
+// }
+
+// What's wrong ↓
+// score is being assigned passing value instead of comparing due to single equal sign
+// Your fix ↓
 let score = 30;
 const passing = 60;
 
-if (score = passing) {
-  console.log("Pass ✅");
+if (score === passing) {
+	console.log('Pass ✅');
 } else {
-  console.log("Fail ❌");
+	console.log('Fail ❌');
 }
-
-// What's wrong ↓
-
-// Your fix ↓
-
-
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
 // ----------------------------------------------------------
@@ -33,21 +38,28 @@ if (score = passing) {
 // at least 140cm tall OR accompanied by an adult.
 // But the code is turning away people it shouldn't.
 
-const height        = 135;
-const withAdult     = true;
-const minHeight     = 140;
+// const height = 135;
+// const withAdult = true;
+// const minHeight = 140;
 
-if (height >= minHeight && withAdult) {
-  console.log("🎢 Enjoy the ride!");
-} else {
-  console.log("🚫 Sorry, you cannot ride.");
-}
+// if (height >= minHeight && withAdult) {
+// 	console.log('🎢 Enjoy the ride!');
+// } else {
+// 	console.log('🚫 Sorry, you cannot ride.');
+// }
 
 // What's wrong ↓
-
+// Using AND operator instead of OR operator
 // Your fix ↓
+const height = 135;
+const withAdult = true;
+const minHeight = 140;
 
-
+if (height >= minHeight || withAdult) {
+	console.log('🎢 Enjoy the ride!');
+} else {
+	console.log('🚫 Sorry, you cannot ride.');
+}
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
 // ----------------------------------------------------------
@@ -57,19 +69,26 @@ if (height >= minHeight && withAdult) {
 // Find both.
 
 var orderTotal = 85;
-
 if (orderTotal >= 50) {
-  console.log("🚚 Standard shipping: $5");
+	console.log('🚚 Standard shipping: $5');
 }
 if (orderTotal >= 100) {
-  console.log("🚀 Free express shipping!");
+	console.log('🚀 Free express shipping!');
 }
 if (orderTotal < 50) {
-  console.log("📦 Economy shipping: $9.99");
+	console.log('📦 Economy shipping: $9.99');
 }
 
 // Bug 1 ↓
-
+// the if conditional checks should be in decending order. >= 100, >= 50, <50
 // Bug 2 ↓
-
+// should be else if and the last condition can just be an else
 // Your fix ↓
+var orderTotal = 85;
+if (orderTotal >= 100) {
+	console.log('🚀 Free express shipping!');
+} else if (orderTotal >= 50) {
+	console.log('🚚 Standard shipping: $5');
+} else {
+	console.log('📦 Economy shipping: $9.99');
+}

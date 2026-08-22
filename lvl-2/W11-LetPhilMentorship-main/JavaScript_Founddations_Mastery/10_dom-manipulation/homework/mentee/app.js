@@ -18,65 +18,65 @@
 // THE DATA — do not modify
 // ============================================================
 const tasks = [
-  {
-    id: 1,
-    title: "Design landing page",
-    assignee: "Alex",
-    priority: "high",
-    status: "todo",
-  },
-  {
-    id: 2,
-    title: "Set up project repo",
-    assignee: "Sofia",
-    priority: "high",
-    status: "done",
-  },
-  {
-    id: 3,
-    title: "Write API documentation",
-    assignee: "Liam",
-    priority: "medium",
-    status: "inprogress",
-  },
-  {
-    id: 4,
-    title: "Fix login bug",
-    assignee: "Alex",
-    priority: "high",
-    status: "inprogress",
-  },
-  {
-    id: 5,
-    title: "Add dark mode support",
-    assignee: "Maya",
-    priority: "low",
-    status: "todo",
-  },
-  {
-    id: 6,
-    title: "Code review PR #42",
-    assignee: "Sofia",
-    priority: "medium",
-    status: "todo",
-  },
-  {
-    id: 7,
-    title: "Deploy to staging",
-    assignee: "Liam",
-    priority: "high",
-    status: "done",
-  },
-  {
-    id: 8,
-    title: "Update dependencies",
-    assignee: "Maya",
-    priority: "low",
-    status: "todo",
-  },
+	{
+		id: 1,
+		title: 'Design landing page',
+		assignee: 'Alex',
+		priority: 'high',
+		status: 'todo',
+	},
+	{
+		id: 2,
+		title: 'Set up project repo',
+		assignee: 'Sofia',
+		priority: 'high',
+		status: 'done',
+	},
+	{
+		id: 3,
+		title: 'Write API documentation',
+		assignee: 'Liam',
+		priority: 'medium',
+		status: 'inprogress',
+	},
+	{
+		id: 4,
+		title: 'Fix login bug',
+		assignee: 'Alex',
+		priority: 'high',
+		status: 'inprogress',
+	},
+	{
+		id: 5,
+		title: 'Add dark mode support',
+		assignee: 'Maya',
+		priority: 'low',
+		status: 'todo',
+	},
+	{
+		id: 6,
+		title: 'Code review PR #42',
+		assignee: 'Sofia',
+		priority: 'medium',
+		status: 'todo',
+	},
+	{
+		id: 7,
+		title: 'Deploy to staging',
+		assignee: 'Liam',
+		priority: 'high',
+		status: 'done',
+	},
+	{
+		id: 8,
+		title: 'Update dependencies',
+		assignee: 'Maya',
+		priority: 'low',
+		status: 'todo',
+	},
 ];
 
-const boardName = "Sprint 12 — Task Board";
+const boardName = 'Sprint 12 — Task Board';
 
 // ----------------------------------------------------------
 // TASK 1 — renderHeader
@@ -92,7 +92,11 @@ const boardName = "Sprint 12 — Task Board";
 // Call renderHeader(tasks) at the bottom.
 
 function renderHeader(taskList) {
-  // your code here
+	// your code here
+	const boardTitle = document.querySelector('#board-title');
+	boardTitle.textContent = boardName;
+	const taskCount = document.querySelector('#task-count');
+	taskCount.textContent = taskList.length + ' tasks';
 }
 
 // ----------------------------------------------------------
@@ -126,7 +130,30 @@ function renderHeader(taskList) {
 // Task 3 will handle placing it in the right column.
 
 function createTaskCard(task) {
-  // your code here
+	// your code here
+	// 1. create task card
+	const li = document.createElement('li');
+	li.classList.add('task-card');
+	li.dataset.id = task.id;
+	// 2. create title
+	const title = document.createElement('p');
+	title.classList.add('task-title');
+	title.textContent = task.title;
+	// 3. create meta and add priority span and assignee span
+	const meta = document.createElement('div');
+	meta.classList.add('task-meta');
+	const prioSpan = document.createElement('span');
+	prioSpan.textContent = task.priority.toUpperCase();
+	prioSpan.classList.add('priority-' + task.priority);
+	const assigneeSpan = document.createElement('span');
+	assigneeSpan.textContent = '👤 ' + task.assignee;
+	// 4. append title and meta to li
+	meta.append(prioSpan, assigneeSpan);
+	li.append(title, meta);
+	if (task.status === 'done') {
+		li.classList.add('completed');
+	}
+	return li;
 }
 
 // ----------------------------------------------------------
@@ -149,7 +176,20 @@ function createTaskCard(task) {
 // Call renderBoard(tasks) at the bottom.
 
 function renderBoard(taskList) {
-  // your code here
+	// your code here
+	let listToDo = document.getElementById('list-todo');
+	let listInProgress = document.getElementById('list-inprogress');
+	let listDone = document.getElementById('list-done');
+	taskList.forEach((task) => {
+		const card = createTaskCard(task);
+		if (task.status === 'todo') {
+			listToDo.appendChild(card);
+		} else if (task.status === 'inprogress') {
+			listInProgress.appendChild(card);
+		} else if (task.status === 'done') {
+			listDone.appendChild(card);
+		}
+	});
 }
 
 // ----------------------------------------------------------
@@ -170,7 +210,13 @@ function renderBoard(taskList) {
 // Call updateCounts(tasks) at the bottom.
 
 function updateCounts(taskList) {
-  // your code here
+	// your code here
+	const completedTasks = taskList.filter((task) => task.status === 'done');
+	const pendingTasks = taskList.filter((task) => task.status !== 'done');
+	let completedCount = document.getElementById('completed-count');
+	completedCount.textContent = '✅ ' + completedTasks.length + ' done';
+	let pendingCount = document.getElementById('pending-count');
+	pendingCount.textContent = '⏳ ' + pendingTasks.length + ' pending';
 }
 
 // ----------------------------------------------------------
@@ -191,7 +237,14 @@ function updateCounts(taskList) {
 // For now just build and attach the buttons so they appear.
 
 function addRemoveButtons() {
-  // your code here
+	// your code here
+	const taskCards = document.querySelectorAll('.task-card');
+	taskCards.forEach((card) => {
+		const removeBtn = document.createElement('button');
+		removeBtn.classList.add('remove-btn');
+		removeBtn.textContent = 'x';
+		card.appendChild(removeBtn);
+	});
 }
 
 // ----------------------------------------------------------
@@ -209,7 +262,11 @@ function addRemoveButtons() {
 // This makes high-priority labels appear bolder.
 
 function highlightHighPriority() {
-  // your code here
+	// your code here
+	const highPriorities = document.querySelectorAll('.priority-high');
+	highPriorities.forEach((element) => {
+		element.style.fontWeight = '1000';
+	});
 }
 
 // ----------------------------------------------------------
@@ -232,8 +289,30 @@ function highlightHighPriority() {
 // Call addNewTask("Write unit tests", "Carlos", "high") at the bottom.
 // Watch a new card appear in the To Do column with a ✕ button.
 
-function addNewTask(title, assignee, priority = "medium", status = "todo") {
-  // your code here
+function addNewTask(title, assignee, priority = 'medium', status = 'todo') {
+	// your code here
+	const newTask = {
+		id: Date.now(),
+		title,
+		assignee,
+		priority,
+		status,
+	};
+	tasks.push(newTask);
+	const newTaskCard = createTaskCard(newTask);
+	if (newTask.status === 'todo') {
+		const listToDo = document.getElementById('list-todo');
+		listToDo.appendChild(newTaskCard);
+	} else if (newTask.status === 'inprogress') {
+		const listInProgress = document.getElementById('list-inprogress');
+		listInProgress.appendChild(newTaskCard);
+	} else if (newTask.status === 'done') {
+		const listDone = document.getElementById('list-done');
+		listDone.appendChild(newTaskCard);
+	}
+	updateCounts(tasks);
+	addRemoveButtons();
+	highlightHighPriority();
 }
 
 // ----------------------------------------------------------
@@ -253,7 +332,12 @@ function addNewTask(title, assignee, priority = "medium", status = "todo") {
 // each function individually.
 
 function renderAll() {
-  // your code here
+	// your code here
+	renderHeader(tasks);
+	renderBoard(tasks);
+	updateCounts(tasks);
+	addRemoveButtons();
+	highlightHighPriority();
 }
 
 // ----------------------------------------------------------
@@ -275,7 +359,29 @@ function renderAll() {
 // Call markComplete(1) to mark task 1 as done.
 //
 // Write a comment: what is dataset used for?
+// dataset is used to assign custom attributes to HTML elements
+function markComplete(taskId) {
+	let found = tasks.find((task) => task.id === taskId);
+	if (found) {
+		console.log(found); //returns correct task
+		found.status = 'done';
+		let taskCard = document.querySelector("[data-id='" + taskId + "']");
+		console.log(taskCard);
+		if (taskCard) {
+			taskCard.classList.add('completed');
+			let listDone = document.getElementById('list-done');
+			listDone.appendChild(taskCard);
+			updateCounts(tasks);
+		}
+	}
+}
 
 // ============================================================
 // CALL YOUR FUNCTIONS HERE
 // ============================================================
+// renderHeader(tasks);
+// renderBoard(tasks);
+// updateCounts(tasks);
+renderAll();
+addNewTask('Write unit tests', 'Carlos', 'high');
+markComplete(1);

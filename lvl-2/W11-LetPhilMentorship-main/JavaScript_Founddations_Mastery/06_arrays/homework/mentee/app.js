@@ -34,7 +34,7 @@
 const className = 'JavaScript Fundamentals'; // const because it doesnt get reassigned
 const passingScore = 60; // const because it doesnt get reassigned
 const studentNames = ['Damon', 'John', 'Amy', 'Danny', 'Max', 'Harvey']; // const because it doesnt get reassigned
-let studentScores = [74, 58, 92, 65, 81, 47]; // let because student scores get reassigned
+const studentScores = [74, 58, 92, 65, 81, 47]; // let because student scores get reassigned *fix: const even tho values inside array is updated.
 
 // ----------------------------------------------------------
 // TASK 2 — Access and display by index
@@ -248,7 +248,7 @@ for (let i = 0; i < studentScores.length; i++) {
 console.log('Original scores: ' + studentScores);
 console.log('Curved scores: ' + curvedScores);
 
-let = passAfterCurveCount = 0;
+let passAfterCurveCount = 0;
 for (let i = 0; i < curvedScores.length; i++) {
 	if (studentScores[i] < passingScore && curvedScores[i] >= passingScore) {
 		passAfterCurveCount++;

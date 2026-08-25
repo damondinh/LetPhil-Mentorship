@@ -44,7 +44,7 @@ const discountRate = 0.1; // doesnt get reassigned
 let cartTotal = 0; // accumulates thus should be let
 let itemsAdded = 0; // counter so should be let
 let itemsSkipped = 0; // counter so should be let
-
+console.log('🛒 ' + storeName + ' — Cart started');
 // ----------------------------------------------------------
 // TASK 2 — Declare your item prices
 // ----------------------------------------------------------
@@ -80,7 +80,7 @@ const item6Price = 28;
 //     - add currentPrice to cartTotal using +=
 //     - increment itemsAdded using ++
 //     - log: "✅ Item " + i + " added ($" + currentPrice + ") | Cart: $" + cartTotal
-for (i = 1; i <= 6; i++) {
+for (let i = 1; i <= 6; i++) {
 	let currentPrice = 0;
 	if (i === 1) {
 		currentPrice = item1Price;
@@ -282,3 +282,4 @@ for (let i = 1; i <= 6; i++) {
 		}
 	}
 }
+console.log('🏆 Total loyalty points: ' + loyaltyPoints);

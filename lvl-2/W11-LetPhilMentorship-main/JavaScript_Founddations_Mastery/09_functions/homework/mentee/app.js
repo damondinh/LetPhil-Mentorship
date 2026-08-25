@@ -86,6 +86,7 @@ function createUser(username, email, age, isPremium = false) {
 }
 console.log(createUser('damon', 'damon@example.com', 27, true));
 console.log(createUser('damon2', 'damon2@example.com', 30));
+// false is good because isPremium would require a logical check before being assigned a value
 // ----------------------------------------------------------
 // TASK 2 — isValidUser  [FUNCTION EXPRESSION]
 // ----------------------------------------------------------
@@ -145,6 +146,8 @@ const formatUserDisplay = (user) =>
 	' | Age: ' +
 	user.age;
 users.forEach((user) => console.log(formatUserDisplay(user)));
+// Arrow function is good because it reduces the code to one line
+// and the function is only needed once
 // ----------------------------------------------------------
 // TASK 4 — getUserById  [FUNCTION DECLARATION + TERNARY]
 // ----------------------------------------------------------
@@ -158,7 +161,8 @@ users.forEach((user) => console.log(formatUserDisplay(user)));
 // Test with id 3 (should find Zoe) and id 99 (should return null).
 // Log both results.
 function getUserById(userList, id) {
-	return userList.find((user) => (user.id === id ? user : null));
+	const found = userList.find((user) => user.id === id);
+	return found ? found : null;
 }
 console.log(getUserById(users, 3));
 console.log(getUserById(users, 99));
@@ -181,9 +185,12 @@ console.log(getUserById(users, 99));
 const filterByAge = function (userList, minAge, maxAge = 100) {
 	return userList.filter((user) => user.age >= minAge && user.age <= maxAge);
 };
-console.log(filterByAge(users, 18));
-console.log(filterByAge(users, 18, 25));
-console.log(filterByAge(users, 13, 17));
+const adults = filterByAge(users, 18).map((user) => user.username);
+const youngAdults = filterByAge(users, 18, 25).map((user) => user.username);
+const teens = filterByAge(users, 13, 17).map((user) => user.username);
+console.log(`length: ${adults.length} usernames: ${adults}`);
+console.log(`length: ${youngAdults.length} usernames: ${youngAdults}`);
+console.log(`length: ${teens.length} usernames: ${teens}`);
 // ----------------------------------------------------------
 // TASK 6 — getAccountStats  [FUNCTION DECLARATION]
 // ----------------------------------------------------------
@@ -207,16 +214,18 @@ console.log(filterByAge(users, 13, 17));
 // Call it with the users array. Log the result.
 // Write a comment: what does passing isValidUser (without ())
 // to filter do differently than passing isValidUser()?
+// isValidUser automatically sets the filter function parameter as isValidUser to execute on every user
+// isValidUser() produces error - cannot read properties of undefined user
 function getAccountStats(userList) {
 	const totalLogins = userList.reduce((acc, user) => acc + user.loginCount, 0);
-	const validCount = userList.filter(isValidUser).length; // ???
-	const premiumCount = userList.filter((user) => user.isPremium).length;
+	const validUsers = userList.filter(isValidUser);
+	const premiumUsers = userList.filter((user) => user.isPremium);
 
 	return {
 		totalUsers: userList.length,
 		totalLogins: totalLogins,
-		premiumCount: premiumCount,
-		validCount: validCount,
+		premiumCount: premiumUsers.length,
+		validCount: validUsers.length,
 		avgLogins: totalLogins / userList.length,
 	};
 }
@@ -236,13 +245,13 @@ console.log(getAccountStats(users));
 // Write a comment: why does mutating user.isPremium inside an
 // arrow function affect the original object?
 // (Hint: objects vs primitives — pass by reference vs value)
-const promoteUser = (user) => {
-	user.isPremium = true;
-	return user;
-};
+// primatives are handed by value, objects are handled by reference,thus
+// mutating the user.isPremium inside the arrow function changes the original objects value aswell.
+const promoteUser = (user) => (user.isPremium = true);
 let sam = users.find((user) => user.id === 2);
 console.log(sam.username + ' before promote: ' + sam.isPremium);
-console.log(sam.username + ' after promote: ' + promoteUser(sam).isPremium);
+promoteUser(sam);
+console.log(sam.username + ' after promote: ' + sam.isPremium);
 // ----------------------------------------------------------
 // TASK 8 — processAccounts  [FUNCTION DECLARATION composing all styles]
 // ----------------------------------------------------------
@@ -264,16 +273,19 @@ console.log(sam.username + ' after promote: ' + promoteUser(sam).isPremium);
 // Call processAccounts(users). Log the result.
 // forEach through result.displayList logging each line.
 function processAccounts(userList) {
-	const validUsers = isValidUser;
-	const adultUsers = filterByAge(userList, 18);
+	const validUsers = userList.filter(isValidUser);
+	const adultUsers = filterByAge(validUsers, 18);
 	const displayList = adultUsers.map(function (user) {
 		return formatUserDisplay(user);
 	});
 	const stats = getAccountStats(userList);
 	return { displayList, stats, skipped: userList.length - validUsers.length };
 }
-console.log(processAccounts(users));
-
+const results = processAccounts(users);
+console.log(results);
+results.displayList.forEach((display) => {
+	console.log(display);
+});
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — searchUsers  [FUNCTION EXPRESSION]
 // ----------------------------------------------------------
@@ -289,8 +301,10 @@ console.log(processAccounts(users));
 //   searchUsers(users, "a")               → all with "a" in username
 //
 // Write a comment: why must you use u[field] instead of u.field?
+// u[field] must be used because it allows you to query different
+// properties of the object
 const searchUsers = function (userList, query, field = 'username') {
-	return userList.filter((user) => user[field].includes(query));
+	return userList.filter((u) => u[field].includes(query));
 };
 
 console.log(searchUsers(users, 'dev'));

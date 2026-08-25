@@ -143,7 +143,7 @@ for (let i = 0; i < inventory.length; i++) {
 		lowStockCount++;
 	}
 }
-console.log('💰 Total inventory value: $');
+console.log('💰 Total inventory value: $' + totalValue);
 console.log('📦 Total items in stock: ' + totalItems);
 console.log('❌ Out of stock: ' + outOfStockCount + ' product(s)');
 console.log('⚠️  Low stock: ' + lowStockCount + ' product(s)');
@@ -189,12 +189,14 @@ console.log('Found ' + found + ' product(s) in ' + searchCategory);
 // After the loop, log the full inventory array to see updated prices.
 const discountRate = 0.15;
 for (let i = 0; i < inventory.length; i++) {
-	let discountAmount = inventory[i].price * discountRate;
-	inventory[i].price -= discountAmount;
-	inventory[i].price = Math.round(inventory[i].price * 100) / 100;
-	console.log(
-		'🏷️ ' + inventory[i].name + ' discounted to $' + inventory[i].price,
-	);
+	if (inventory[i].category === 'Electronics') {
+		let discountAmount = inventory[i].price * discountRate;
+		inventory[i].price -= discountAmount;
+		inventory[i].price = Math.round(inventory[i].price * 100) / 100;
+		console.log(
+			'🏷️ ' + inventory[i].name + ' discounted to $' + inventory[i].price,
+		);
+	}
 }
 console.log(inventory);
 // ----------------------------------------------------------
@@ -333,10 +335,10 @@ for (let i = 0; i < categories.length; i++) {
 	let curCategoryStock = 0;
 	let curCategoryValue = 0;
 	for (let j = 0; j < inventory.length; j++) {
-		if (categories[i] === inventory[i].category) {
+		if (categories[i] === inventory[j].category) {
 			curCategoryCount += 1;
-			curCategoryStock += inventory[i].stock;
-			curCategoryValue += inventory[i].price * inventory[i].stock;
+			curCategoryStock += inventory[j].stock;
+			curCategoryValue += inventory[j].price * inventory[j].stock;
 		}
 	}
 	console.log('--- ' + categories[i] + ' ---');

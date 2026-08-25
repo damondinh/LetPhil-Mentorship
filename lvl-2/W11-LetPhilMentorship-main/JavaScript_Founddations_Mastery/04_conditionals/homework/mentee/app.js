@@ -52,6 +52,7 @@ if (isExtraCredit) {
 } else {
 	console.log('Ne extra credit.');
 }
+console.log(earnedScore);
 // ----------------------------------------------------------
 // TASK 3 — Calculate the percentage (operators)
 // ----------------------------------------------------------
@@ -72,6 +73,8 @@ console.log(studentName + ' scored ' + percentage + '%');
 //   anything below    → log "Grade: F ❌"
 //
 // ⚠️ Think carefully about the order. Why must 90 come before 80?
+// the grade A check for 90 must come first because grade B is only granted if the percentage is between 90 and 80.
+// Otherwise the if statement will cause all scores above 80 to be grade B
 if (percentage >= 90) {
 	console.log('Grade: A 🌟');
 } else if (percentage >= 80) {

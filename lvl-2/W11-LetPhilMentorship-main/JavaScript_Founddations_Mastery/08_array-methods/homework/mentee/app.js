@@ -116,6 +116,7 @@ const receipts = orders.map(function (order) {
 		' item(s))'
 	);
 });
+console.log(receipts.length);
 receipts.forEach(function (receipt) {
 	console.log(receipt);
 });
@@ -245,6 +246,10 @@ const totalRevenue = orders.reduce(function (acc, order) {
 	return acc + order.total;
 }, 0);
 console.log('Total revenue: $' + totalRevenue);
+const totalItems = orders.reduce(function (acc, order) {
+	return acc + order.items;
+}, 0);
+console.log('Total items ordered: ' + totalItems);
 const averageOrder = totalRevenue / orders.length;
 console.log('Average order value: $' + averageOrder.toFixed(2));
 // ----------------------------------------------------------
@@ -343,29 +348,57 @@ priorityDisplay.forEach(function (order) {
 // Log report.
 //
 // Hint: inside the reduce callback, update acc properties and return acc.
-let summary = {
-	totalOrder: 0,
-	totalRevenue: 0,
-	deliveredCount: 0,
-	pendingCount: 0,
-	cancelledCount: 0,
-	priorityCount: 0,
-};
-const report = orders.reduce(function (acc, order) {
-	summary.totalOrder++;
-	summary.totalRevenue += order.total;
-	if (order.status === 'delivered') {
-		summary.deliveredCount++;
-	}
-	if (order.status === 'pending') {
-		summary.pendingCount++;
-	}
-	if (order.status === 'cancelled') {
-		summary.cancelledCount++;
-	}
-	if (order.isPriority === true) {
-		summary.priorityCount++;
-	}
-	return summary;
-}, summary);
+// let summary = {
+// 	totalOrder: 0,
+// 	totalRevenue: 0,
+// 	deliveredCount: 0,
+// 	pendingCount: 0,
+// 	cancelledCount: 0,
+// 	priorityCount: 0,
+// };
+// const report = orders.reduce(function (acc, order) {
+// 	summary.totalOrder++;
+// 	summary.totalRevenue += order.total;
+// 	if (order.status === 'delivered') {
+// 		summary.deliveredCount++;
+// 	}
+// 	if (order.status === 'pending') {
+// 		summary.pendingCount++;
+// 	}
+// 	if (order.status === 'cancelled') {
+// 		summary.cancelledCount++;
+// 	}
+// 	if (order.isPriority === true) {
+// 		summary.priorityCount++;
+// 	}
+// 	return summary;
+// }, summary);
+
+const report = orders.reduce(
+	function (acc, order) {
+		acc.totalOrder++;
+		acc.totalRevenue += order.total;
+		if (order.status === 'delivered') {
+			acc.deliveredCount++;
+		}
+		if (order.status === 'pending') {
+			acc.pendingCount++;
+		}
+		if (order.status === 'cancelled') {
+			acc.cancelledCount++;
+		}
+		if (order.isPriority === true) {
+			acc.priorityCount++;
+		}
+		return acc;
+	},
+	{
+		totalOrder: 0,
+		totalRevenue: 0,
+		deliveredCount: 0,
+		pendingCount: 0,
+		cancelledCount: 0,
+		priorityCount: 0,
+	},
+);
 console.log(report);

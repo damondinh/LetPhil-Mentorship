@@ -78,12 +78,12 @@ const cleanCustomer = customerName.trim().toLowerCase();
 const titleCustomer = cleanCustomer[0].toUpperCase() + cleanCustomer.slice(1);
 console.log(`Customer: ${titleCustomer}`);
 
-const cleanEmail = customerEmail.trim().toLowerCase();
-const titleEmail = cleanEmail[0].toUpperCase() + cleanEmail.slice(1);
+const cleanEmail = customerEmail.trim();
+const titleEmail = cleanEmail.toLowerCase();
 console.log(`Email: ${titleEmail}`);
 
-const cleanCode = discountCode.trim().toLowerCase();
-const titleCode = cleanCode[0].toUpperCase() + cleanCode.slice(1);
+const cleanCode = discountCode.trim();
+const titleCode = cleanCode.toUpperCase();
 console.log(`Discount code: ${titleCode}`);
 
 // ----------------------------------------------------------
@@ -166,7 +166,7 @@ console.log(`Subtotal: $${subtotal.toFixed(2)}`);
 
 console.log('\n--- Task 4: Discount and Tax ---');
 // your code here
-const discountAmount = subtotal * 0.19;
+const discountAmount = subtotal * 0.1;
 const discountedSubtotal = subtotal - discountAmount;
 console.log(`Discount (10%): -$${discountAmount.toFixed(2)}`);
 console.log(`After discount: $${discountedSubtotal.toFixed(2)}`);
@@ -204,7 +204,8 @@ console.log(`orderStatus: ${orderStatus}`);
 console.log(`typeof orderStatus: ${typeof orderStatus}`);
 console.log(`Boolean(orderStatus): ${Boolean(orderStatus)}`);
 // orderStatus has not yet been assigned a value thus the order has not been processed
-
+console.log(`item1Price + item2Price = ${item1Price + item2Price}`);
+// because item1Price and item2Price are stirngs, causing the strings to concatenate instead of adding their values do to coercion
 // ----------------------------------------------------------
 // TASK 6 — Build the receipt header
 // ----------------------------------------------------------
@@ -231,7 +232,7 @@ const receiptHeader = `
 ${titleStore}
 ==================================
 Customer: ${titleCustomer}
-Email: ${cleanEmail}
+Email: ${titleEmail}
 Date: ${orderDate}
 Code: ${cleanCode}
 ==================================`;

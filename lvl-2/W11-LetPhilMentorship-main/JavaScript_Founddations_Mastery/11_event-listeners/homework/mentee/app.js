@@ -14,62 +14,62 @@
 // THE DATA
 // ============================================================
 const tasks = [
-  {
-    id: 1,
-    title: "Design landing page",
-    assignee: "Alex",
-    priority: "high",
-    status: "todo",
-  },
-  {
-    id: 2,
-    title: "Set up project repo",
-    assignee: "Sofia",
-    priority: "high",
-    status: "done",
-  },
-  {
-    id: 3,
-    title: "Write API docs",
-    assignee: "Liam",
-    priority: "medium",
-    status: "inprogress",
-  },
-  {
-    id: 4,
-    title: "Fix login bug",
-    assignee: "Alex",
-    priority: "high",
-    status: "inprogress",
-  },
-  {
-    id: 5,
-    title: "Add dark mode",
-    assignee: "Maya",
-    priority: "low",
-    status: "todo",
-  },
-  {
-    id: 6,
-    title: "Code review PR #42",
-    assignee: "Sofia",
-    priority: "medium",
-    status: "todo",
-  },
-  {
-    id: 7,
-    title: "Deploy to staging",
-    assignee: "Liam",
-    priority: "high",
-    status: "done",
-  },
-  {
-    id: 8,
-    title: "Update dependencies",
-    assignee: "Maya",
-    priority: "low",
-    status: "todo",
-  },
+	{
+		id: 1,
+		title: 'Design landing page',
+		assignee: 'Alex',
+		priority: 'high',
+		status: 'todo',
+	},
+	{
+		id: 2,
+		title: 'Set up project repo',
+		assignee: 'Sofia',
+		priority: 'high',
+		status: 'done',
+	},
+	{
+		id: 3,
+		title: 'Write API docs',
+		assignee: 'Liam',
+		priority: 'medium',
+		status: 'inprogress',
+	},
+	{
+		id: 4,
+		title: 'Fix login bug',
+		assignee: 'Alex',
+		priority: 'high',
+		status: 'inprogress',
+	},
+	{
+		id: 5,
+		title: 'Add dark mode',
+		assignee: 'Maya',
+		priority: 'low',
+		status: 'todo',
+	},
+	{
+		id: 6,
+		title: 'Code review PR #42',
+		assignee: 'Sofia',
+		priority: 'medium',
+		status: 'todo',
+	},
+	{
+		id: 7,
+		title: 'Deploy to staging',
+		assignee: 'Liam',
+		priority: 'high',
+		status: 'done',
+	},
+	{
+		id: 8,
+		title: 'Update dependencies',
+		assignee: 'Maya',
+		priority: 'low',
+		status: 'todo',
+	},
 ];
 
 // ----------------------------------------------------------
@@ -93,7 +93,37 @@ const tasks = [
 //   7. Return the <li>
 
 function createTaskCard(task) {
-  // your code here
+	// create task card
+	const taskCard = document.createElement('li');
+	taskCard.classList.add('task-card');
+	taskCard.dataset.id = task.id;
+	taskCard.dataset.priority = task.priority;
+	// create task title
+	const taskTitle = document.createElement('p');
+	taskTitle.classList.add('task-title');
+	taskTitle.textContent = task.title;
+	// create task meta
+	const taskMeta = document.createElement('div');
+	taskMeta.classList.add('task-meta');
+	taskMeta.innerHTML = `
+    <span class="priority">${task.priority.toUpperCase()}</span>
+    <span>👤 ${task.assignee}</span>
+  `;
+	// create card-actions
+	const cardActions = document.createElement('div');
+	cardActions.classList.add('card-actions');
+	cardActions.innerHTML = `
+    <button class="complete-btn">✅ Complete</button>
+    <button class="remove-btn">🗑️ Remove</button>
+  `;
+	// add completed class
+	if (task.status === 'done') {
+		taskCard.classList.add('completed');
+	}
+	// append child
+	taskCard.append(taskTitle, taskMeta, cardActions);
+
+	return taskCard;
 }
 
 // ----------------------------------------------------------
@@ -130,11 +160,45 @@ function createTaskCard(task) {
 //   #count-done       → done.length          (just the number — no label)
 
 function updateCounts(taskList) {
-  // your code here
+	// filter to get groups
+	const done = taskList.filter((task) => task.status === 'done');
+	const pending = taskList.filter((task) => task.status !== 'done');
+	const todo = taskList.filter((task) => task.status === 'todo');
+	const inprogress = taskList.filter((task) => task.status === 'inprogress');
+
+	// setting count on elements
+	const taskCount = document.getElementById('task-count');
+	taskCount.textContent = taskList.length + ' tasks';
+	const completedCount = document.getElementById('completed-count');
+	completedCount.textContent = '✅ ' + done.length + ' done';
+	document.getElementById('pending-count').textContent =
+		'⏳ ' + pending.length + ' pending';
+	document.getElementById('count-todo').textContent = todo.length;
+	document.getElementById('count-inprogress').textContent = inprogress.length;
+	document.getElementById('count-done').textContent = done.length;
 }
 
 function renderBoard(taskList) {
-  // your code here
+	// clear lists
+	const listToDo = document.getElementById('list-todo');
+	listToDo.innerHTML = '';
+	const listInProgress = document.getElementById('list-inprogress');
+	listInProgress.innerHTML = '';
+	const listDone = document.getElementById('list-done');
+	listDone.innerHTML = '';
+	// create task for each task in taskList and append to corresponding list
+	taskList.forEach((task) => {
+		const taskCard = createTaskCard(task);
+		if (task.status === 'todo') {
+			listToDo.appendChild(taskCard);
+		} else if (task.status === 'inprogress') {
+			listInProgress.appendChild(taskCard);
+		} else if (task.status === 'done') {
+			listDone.appendChild(taskCard);
+		}
+	});
+	// update count
+	updateCounts(taskList);
 }
 
 // ----------------------------------------------------------
@@ -161,10 +225,33 @@ function renderBoard(taskList) {
 //     .addEventListener("click", handleAddTask);
 
 function handleAddTask() {
-  // your code here
+	// read values
+	const title = document.getElementById('task-title-input').value.trim();
+	const assignee = document.getElementById('task-assignee-input').value.trim();
+	const priority = document.getElementById('task-priority-input').value;
+	const status = document.getElementById('task-status-input').value;
+	if (title === '') {
+		console.log('Title is required');
+		return;
+	}
+	const newTask = {
+		id: Date.now(),
+		title,
+		assignee: assignee || 'Unassigned',
+		priority,
+		status,
+	};
+	tasks.push(newTask);
+	renderBoard(tasks);
+	// clear inputs
+	document.getElementById('task-title-input').value = '';
+	document.getElementById('task-assignee-input').value = '';
 }
 
 // wire up here
+document
+	.getElementById('add-task-btn')
+	.addEventListener('click', handleAddTask);
 
 // ----------------------------------------------------------
 // TASK 4 — handleBoardClick (event delegation for complete + remove)
@@ -204,7 +291,7 @@ function handleAddTask() {
 // Write a comment: why use .closest() instead of event.target directly?
 
 function handleBoardClick(event) {
-  // your code here
+	// your code here
 }
 
 // wire up here
@@ -240,7 +327,7 @@ function handleBoardClick(event) {
 // individual listeners on each button?
 
 function handleFilterClick(event) {
-  // your code here
+	// your code here
 }
 
 // wire up here
@@ -263,7 +350,7 @@ function handleFilterClick(event) {
 // Wire it up to document.
 
 function handleKeyDown(event) {
-  // your code here
+	// your code here
 }
 
 // wire up here
@@ -277,7 +364,7 @@ function handleKeyDown(event) {
 // Call init() at the bottom.
 
 function init() {
-  // your code here
+	// your code here
 }
 
 // ----------------------------------------------------------

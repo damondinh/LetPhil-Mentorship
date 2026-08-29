@@ -289,12 +289,31 @@ document
 //     .addEventListener("click", handleBoardClick);
 //
 // Write a comment: why use .closest() instead of event.target directly?
-
+// to target the closest task-card to the click, as there would be multiple task-cards to choose from.
 function handleBoardClick(event) {
-	// your code here
+	const target = event.target;
+	const card = target.closest('.task-card'); // walks up the dom tree to find the nearest matching ancestor
+	if (!card) {
+		return;
+	}
+	const taskId = parseInt(card.dataset.id);
+	const task = tasks.find((task) => task.id === taskId);
+	if (target.classList.contains('complete-btn')) {
+		task.status = 'done';
+		card.classList.add('completed');
+		document.getElementById('list-done').appendChild(card);
+		updateCounts(tasks);
+	}
+	if (target.classList.contains('remove-btn')) {
+		const index = tasks.findIndex((t) => t.id === taskId);
+		tasks.splice(index, 1);
+		card.remove();
+		updateCounts(tasks);
+	}
 }
 
 // wire up here
+document.querySelector('.board').addEventListener('click', handleBoardClick);
 
 // ----------------------------------------------------------
 // TASK 5 — handleFilterClick (filter buttons)

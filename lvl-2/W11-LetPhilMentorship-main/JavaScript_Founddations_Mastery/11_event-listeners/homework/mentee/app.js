@@ -344,12 +344,38 @@ document.querySelector('.board').addEventListener('click', handleBoardClick);
 //
 // Write a comment: why use delegation here instead of
 // individual listeners on each button?
-
+// becuase if other filter options were to be added they
+// they would all get the linked wiht the event listener
 function handleFilterClick(event) {
-	// your code here
+	// get filter value
+	const filter = event.target.dataset.filter;
+	// return if no filter value found
+	if (!filter) {
+		return;
+	}
+	// get all filter buttons
+	const filterBtns = document.querySelectorAll('.filter-btn');
+	// remove active class from all filter buttons
+	filterBtns.forEach((btn) => btn.classList.remove('active'));
+	// add "active" class to event.target
+	event.target.classList.add('active');
+	// select all .task-card elements
+	const taskCards = document.querySelectorAll('.task-card');
+	taskCards.forEach((card) => {
+		if (filter === 'all') {
+			card.classList.remove('hidden');
+		} else if (card.dataset.priority === filter) {
+			card.classList.remove('hidden');
+		} else {
+			card.classList.add('hidden');
+		}
+	});
 }
 
 // wire up here
+document
+	.querySelector('.header-right')
+	.addEventListener('click', handleFilterClick);
 
 // ----------------------------------------------------------
 // TASK 6 — handleKeyDown (keyboard shortcuts)
@@ -369,11 +395,20 @@ function handleFilterClick(event) {
 // Wire it up to document.
 
 function handleKeyDown(event) {
-	// your code here
+	// handle escape
+	if (event.key === 'Escape') {
+		document.getElementById('task-title-input').value = '';
+		document.getElementById('task-assignee-input').value = '';
+		console.log('Inputs cleared');
+	}
+	// handle enter
+	if (event.key === 'Enter' && event.target.id === 'task-title-input') {
+		handleAddTask();
+	}
 }
 
 // wire up here
-
+document.addEventListener('keydown', handleKeyDown);
 // ----------------------------------------------------------
 // TASK 7 — Connect the dots: init
 // ----------------------------------------------------------
@@ -383,7 +418,7 @@ function handleKeyDown(event) {
 // Call init() at the bottom.
 
 function init() {
-	// your code here
+	renderBoard(tasks);
 }
 
 // ----------------------------------------------------------
@@ -409,11 +444,26 @@ function init() {
 //     .addEventListener("input", handleSearch);
 //
 // Write a comment: why use "input" and not "change" for live search?
-
+// change only fires when clicking or pressing enter, input happens after
+// every value change
+function handleSearch(event) {
+	const query = event.target.value.toLowerCase().trim();
+	const taskCards = document.querySelectorAll('.task-card');
+	taskCards.forEach((card) => {
+		const title = card.querySelector('.task-title').textContent.toLowerCase();
+		if (title.includes(query)) {
+			card.classList.remove('hidden');
+		} else {
+			card.classList.add('hidden');
+		}
+	});
+}
+document
+	.getElementById('search-input')
+	.addEventListener('change', handleSearch);
 // ============================================================
 // WIRE UP ALL LISTENERS (above init)
 // ============================================================
-
 // ============================================================
 // START
 // ============================================================

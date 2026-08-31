@@ -5,7 +5,6 @@
 // in index.html.
 // ============================================================
 
-
 // ----------------------------------------------------------
 // 🟢 DEBUG 1 — Easy
 // ----------------------------------------------------------
@@ -14,17 +13,16 @@
 // then does nothing when you click. What's wrong?
 
 function logTitle() {
-  const title = document.getElementById("task-title-input").value;
-  console.log("Title: " + title);
+	const title = document.getElementById('task-title-input').value;
+	console.log('Title: ' + title);
 }
 
-document.getElementById("add-task-btn")
-  .addEventListener("click", logTitle());
+document.getElementById('add-task-btn').addEventListener('click', logTitle);
 
 // What's wrong ↓
-
+// logTitle immediately executes because of the brackets
 // Your fix ↓
-
+// remove brackets from logTitle
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
@@ -34,25 +32,26 @@ document.getElementById("add-task-btn")
 // What's wrong with the condition?
 
 function handleFilter(event) {
-  const filter  = event.target.dataset.filter;
-  const allCards = document.querySelectorAll(".task-card");
+	const filter = event.target.dataset.filter;
+	const allCards = document.querySelectorAll('.task-card');
 
-  allCards.forEach(function(card) {
-    if (card.dataset.priority !== filter) {
-      card.classList.remove("hidden");
-    } else {
-      card.classList.add("hidden");
-    }
-  });
+	allCards.forEach(function (card) {
+		if (card.dataset.priority === filter) {
+			card.classList.remove('hidden');
+		} else {
+			card.classList.add('hidden');
+		}
+	});
 }
 
-document.querySelector(".header-right")
-  .addEventListener("click", handleFilter);
+document.querySelector('.header-right').addEventListener('click', handleFilter);
 
 // What's wrong ↓
-
+// the condition is only adding hidden when the priority is === filter
+// if priority !== filter then remove hidden from classList
+// if priority === filter then add hidden to classList
 // Your fix ↓
-
+// hidden should be removed from cards where priority === filter and added when filter !== priority
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -62,19 +61,23 @@ document.querySelector(".header-right")
 // There are TWO bugs.
 
 function handleBoardClick(event) {
-  const card   = event.target.closest(".task-card");
-  const taskId = card.dataset.id;
+	const card = event.target.closest('.task-card');
+	const taskId = card.dataset.id;
 
-  if (event.target.classList.contains("remove-btn")) {
-    card.remove();
-  }
+	if (event.target.classList.contains('remove-btn')) {
+		const index = tasks.findIndex((t) => t.id === taskId); // fix 1
+		tasks.splice(index, 1);
+		card.remove();
+		updateCounts(tasks); // fix 2
+	}
 }
 
-document.querySelector(".board")
-  .addEventListener("click", handleBoardClick);
+document.querySelector('.board').addEventListener('click', handleBoardClick);
 
 // Bug 1 ↓
-
+// doesnt remove task from the array using task id
 // Bug 2 ↓
-
+// doesnt update counts
 // Your fix ↓
+// not sure if those are the correct bug fixes, the delegation handler
+// worked fine for me.

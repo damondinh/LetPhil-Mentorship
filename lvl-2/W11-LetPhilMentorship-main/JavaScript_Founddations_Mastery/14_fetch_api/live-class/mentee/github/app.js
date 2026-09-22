@@ -132,7 +132,37 @@ function createProfileCard(user) {
 //   7. return the li
 
 function createRepoRow(repo) {
-  // your code here
+  const language = repo.language || "Unknown";
+  const dotColor = LANG_COLORS[language] || "#a3a3a3";
+  const updated = new Date(repo.udpated_at).toLocaleDateString();
+  const description = repo.description || "No description";
+
+  let badges = "";
+
+  if (!repo.description) {
+    badges += `<span class="warn-badge">no description</span>`;
+  }
+  if (!repo.homepage) {
+    badges += `<span class="warn-badge">no live link</span>`;
+  }
+
+  const li = document.createElement("li");
+  li.className = "repo-row";
+  li.innerHTML = `
+    <div class="repo-top">
+          <span class="repo-name">${repo.name}</span>
+          ${badges}
+        </div>
+        <p class="desc">${description}</p>
+        <div class="meta">
+          <span>
+            <span class="lang-dot" style="background:${dotColor}"></span>${language}
+          </span>
+          <span>Updated ${updated}</span>
+        </div>
+`;
+
+  return li;
 }
 
 // TASK 3 — renderReport (the "checks" box)
@@ -168,7 +198,33 @@ function createRepoRow(repo) {
 //      `
 
 function renderReport(repos) {
-  // your code here
+  const missingDesc = repos.filter((repo) => !repo.description).length;
+  const missingLink = repos.filter((repo) => !repo.homepage).length;
+
+  const hasEnoughRepos = repos.length >= 3;
+  const allDescribed = missingDesc === 0;
+  const allDeployed = missingLink === 0;
+
+  const isReady = hasEnoughRepos && allDescribed && allDeployed;
+
+  const portfolioReport = document.getElementById("portfolio-report");
+  portfolioReport.innerHTML = `
+       <div class="report">
+         <h3>Portfolio checks</h3>
+         <p class="check-item ${hasEnoughRepos ? "pass" : "fail"}">
+           ${hasEnoughRepos ? "✓" : "✗"} At least 3 public repos (${repos.length})
+         </p>
+         <p class="check-item ${allDescribed ? "pass" : "fail"}">
+           ${allDescribed ? "✓" : "✗"} Every repo has a description (${missingDesc} missing)
+         </p>
+         <p class="check-item ${allDeployed ? "pass" : "fail"}">
+           ${allDeployed ? "✓" : "✗"} Every repo has a live link (${missingLink} missing)
+         </p>
+         <p class="verdict ${isReady ? "ready" : "not-ready"}">
+           ${isReady ? "✓ All checks passed — portfolio-ready!" : "● Some checks failed — fix the ✗ items and re-run"}
+         </p>
+       </div>
+     `;
 }
 
 // TASK 4 — the fetches (profile first, THEN repos)
@@ -184,6 +240,7 @@ function renderReport(repos) {
 //      - clear #repo-list, forEach → appendChild(createRepoRow(repo))
 //   4. .catch → #github-status: `❌ ${error.message}` / "status error"
 //
+
 // Then declare a function called checkProfile.
 // No parameters.
 //
@@ -209,8 +266,36 @@ function renderReport(repos) {
 // Test: your own username · "torvalds" · "no-such-user-xyz-123"
 
 function fetchRepos(username) {
-  // your code here
+  fetch(
+    `https://api.github.com/users/${username}/repos?sort=updated&per_page=10`,
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Couldn't load repos");
+      }
+      return response.json();
+    })
+    .then((repos) => {
+      renderReport(repos);
+      const repoList = document.getElementById("repo-list");
+      repoList.innerHTML = "";
+      repos.forEach((repo) => {
+        repoList.appendChild(createRepoRow(repo));
+      });
+    })
+    .catch((err) => {
+      console.log(err.message);
+      const gitStatus = document.getElementById("github-status");
+      gitStatus.textContent = `❌ ${err.message}`;
+      gitStatus.className = "status error";
+    });
 }
+
+fetchRepos("paradosso-debug");
+
+// const err = {
+//   message: "couldnt load repos"
+// }
 
 function checkProfile() {
   // your code here

@@ -15,41 +15,41 @@
 // DEFAULT TASKS — used only when nothing is saved yet
 // ============================================================
 const defaultTasks = [
-  {
-    id: 1,
-    title: "Design landing page",
-    assignee: "Alex",
-    priority: "high",
-    status: "todo",
-  },
-  {
-    id: 2,
-    title: "Set up project repo",
-    assignee: "Sofia",
-    priority: "high",
-    status: "done",
-  },
-  {
-    id: 3,
-    title: "Write API docs",
-    assignee: "Liam",
-    priority: "medium",
-    status: "inprogress",
-  },
-  {
-    id: 4,
-    title: "Fix login bug",
-    assignee: "Alex",
-    priority: "high",
-    status: "inprogress",
-  },
-  {
-    id: 5,
-    title: "Add dark mode",
-    assignee: "Maya",
-    priority: "low",
-    status: "todo",
-  },
+	{
+		id: 1,
+		title: 'Design landing page',
+		assignee: 'Alex',
+		priority: 'high',
+		status: 'todo',
+	},
+	{
+		id: 2,
+		title: 'Set up project repo',
+		assignee: 'Sofia',
+		priority: 'high',
+		status: 'done',
+	},
+	{
+		id: 3,
+		title: 'Write API docs',
+		assignee: 'Liam',
+		priority: 'medium',
+		status: 'inprogress',
+	},
+	{
+		id: 4,
+		title: 'Fix login bug',
+		assignee: 'Alex',
+		priority: 'high',
+		status: 'inprogress',
+	},
+	{
+		id: 5,
+		title: 'Add dark mode',
+		assignee: 'Maya',
+		priority: 'low',
+		status: 'todo',
+	},
 ];
 
 // This is your working tasks array — start it empty.
@@ -77,7 +77,15 @@ let tasks = [];
 // This function will be called after EVERY change.
 
 function saveTasks() {
-  // your code here
+	// 1. Save tasks to local storage
+	localStorage.setItem('taskBoardData', JSON.stringify(tasks));
+
+	// 2. Flash the save indicator
+	const saveIndicator = document.getElementById('save-indicator');
+	saveIndicator.classList.add('visible');
+	setTimeout(function () {
+		saveIndicator.classList.remove('visible');
+	}, 1500); // calls setTimeout after 1500ms to remove visible class from save indicator
 }
 
 // ----------------------------------------------------------
@@ -100,7 +108,17 @@ function saveTasks() {
 // ⚠️  Always check for null before parsing.
 
 function loadTasks() {
-  // your code here
+	// 1.Get taskBoardData from local storage
+	const raw = localStorage.getItem('taskBoardData');
+
+	// 2. Handle taskBoardData is null
+	if (raw === null) {
+		tasks = [...defaultTasks]; //copy the default using spread operator
+		saveTasks();
+		return;
+	} else {
+		tasks = JSON.parse(raw);
+	}
 }
 
 // ----------------------------------------------------------
@@ -129,7 +147,43 @@ function loadTasks() {
 // Return the <li> — do NOT append it here.
 
 function createTaskCard(task) {
-  // your code here
+	// 1. create task card
+	const taskcard = document.createElement('li');
+	taskcard.classList.add('task-card');
+	taskcard.dataset.id = task.id;
+	taskcard.dataset.priority = task.priority;
+
+	// 2. create title
+	const title = document.createElement('p');
+	title.classList.add('task-title');
+	title.textContent = task.title;
+
+	// 3. create meta with priority span & assignee span
+	const meta = document.createElement('div');
+	meta.classList.add('task-meta');
+	const priority = document.createElement('span');
+	priority.textContent = task.priority.toUpperCase();
+	priority.classList.add('priority-' + task.priority);
+	const assignee = document.createElement('span');
+	assignee.textContent = '👤 ' + task.assignee;
+	meta.append(priority, assignee);
+
+	// 4. create action buttons with complete btn & remove btn
+	const actions = document.createElement('div');
+	actions.classList.add('card-actions');
+	actions.innerHTML = ` <button class="complete-btn">✅ Complete</button>
+                        <button class="remove-btn">🗑️ Remove</button>`;
+
+	// 5. handle completed tasks
+	if (task.status === 'done') {
+		taskcard.classList.add('complete');
+	}
+
+	// 6. append components to taskcard
+	taskcard.append(title, meta, actions);
+
+	// 7. return taskCard
+	return taskcard;
 }
 
 // ----------------------------------------------------------
@@ -161,11 +215,51 @@ function createTaskCard(task) {
 //   #count-done       → done.length          (just the number — no label)
 
 function updateCounts() {
-  // your code here
+	// 1. filter to get groups
+	const done = tasks.filter((task) => task.status === 'done');
+	const pending = tasks.filter((task) => task.status !== 'done');
+	const todo = tasks.filter((task) => task.status === 'todo');
+	const inprogress = tasks.filter((task) => task.status === 'inprogress');
+
+	// 2. set textContent on six elements
+	const taskCount = document.getElementById('task-count');
+	const completedCount = document.getElementById('completed-count');
+	const pendingCount = document.getElementById('pending-count');
+	const todoCount = document.getElementById('count-todo');
+	const inprogressCount = document.getElementById('count-inprogress');
+	const doneCount = document.getElementById('count-done');
+
+	taskCount.innerText = tasks.length + ' tasks';
+	completedCount.innerText = '✅ ' + done.length + ' done';
+	pendingCount.innerText = '⏳ ' + pending.length + ' pending';
+	todoCount.innerText = todo.length;
+	inprogressCount.innerText = inprogress.length;
+	doneCount.innerText = done.length;
 }
 
 function renderBoard() {
-  // your code here
+	// 1. Clear all three lists
+	const todoList = document.getElementById('list-todo');
+	const inprogressList = document.getElementById('list-inprogress');
+	const doneList = document.getElementById('list-done');
+	todoList.innerHTML = '';
+	inprogressList.innerHTML = '';
+	doneList.innerHTML = '';
+
+	// 2. Loop through tasks, call createTaskCard, append to correct list
+	tasks.forEach((task) => {
+		const card = createTaskCard(task);
+		if (task.status === 'todo') {
+			todoList.append(card);
+		} else if (task.status === 'inprogress') {
+			inprogressList.append(card);
+		} else if (task.status === 'done') {
+			doneList.append(card);
+		}
+	});
+
+	// 3. Update Counts
+	updateCounts();
 }
 
 // ----------------------------------------------------------
@@ -196,12 +290,43 @@ function renderBoard() {
 //     .addEventListener("click", handleAddTask)
 
 function handleAddTask() {
-  // your code here
+	// 1. read the four input values
+	const title = document.getElementById('task-title-input').value;
+	const assignee = document.getElementById('task-assignee-input').value;
+	const priority = document.getElementById('task-priority-input').value;
+	const status = document.getElementById('task-status-input').value;
+
+	// 2. if title is empty -> return early
+	if (!title) {
+		return;
+	}
+
+	// 3. create new task object
+	const newTask = {
+		id: Date.now(),
+		title,
+		assignee: assignee || 'Unassigned',
+		priority,
+		status,
+	};
+
+	// 4. push to tasks array
+	tasks.push(newTask);
+
+	// 5. save tasks to local storage
+	saveTasks();
+
+	// 6. render board to UI
+	renderBoard();
+
+	// 7. clear title and assignee inputs
+	document.getElementById('task-title-input').innerText = '';
+	document.getElementById('task-assignee-input').innerText = '';
 }
 
 document
-  .getElementById("add-task-btn")
-  .addEventListener("click", handleAddTask);
+	.getElementById('add-task-btn')
+	.addEventListener('click', handleAddTask);
 
 // ----------------------------------------------------------
 // TASK 6 — handleBoardClick (delegation for complete + remove)
@@ -228,10 +353,34 @@ document
 // Wire it up to document.querySelector(".board")
 
 function handleBoardClick(event) {
-  // your code here
+	// 1. get the card
+	const card = event.target.closest('.task-card');
+	if (!card) {
+		return;
+	}
+
+	// 2. get taskId
+	const taskId = parseInt(card.dataset.id);
+	const task = tasks.find((task) => task.id === taskId);
+
+	// 3. handle complete button clicked
+	if (event.target.className === 'complete-btn') {
+		task.status = 'done';
+		saveTasks();
+		renderBoard();
+	}
+	// 4. handle remove button clicked
+	if (event.target.className === 'remove-btn') {
+		tasks.splice(
+			tasks.findIndex((task) => task.id === taskId),
+			1,
+		);
+		saveTasks();
+		renderBoard();
+	}
 }
 
-document.querySelector(".board").addEventListener("click", handleBoardClick);
+document.querySelector('.board').addEventListener('click', handleBoardClick);
 
 // ----------------------------------------------------------
 // TASK 7 — handleClearAll
@@ -251,10 +400,30 @@ document.querySelector(".board").addEventListener("click", handleBoardClick);
 //     .addEventListener("click", handleClearAll)
 
 function handleClearAll() {
-  // your code here
+	// 1. Confirm the user wants to clear
+	if (!confirm('Clear all tasks? This cannot be undone.')) {
+		return;
+	}
+
+	// 2. Clear local storage
+	localStorage.removeItem('taskBoardData');
+
+	// 3. Reset tasks
+	tasks = [...defaultTasks];
+
+	// 4. reset filter
+	const filterBtns = document.querySelectorAll('.filter-btn');
+	filterBtns.forEach((btn) => btn.classList.remove('active'));
+	document.querySelector('.filter-btn').classList.add('active');
+
+	// 4. save to defaults
+	saveTasks();
+
+	// 5. render board
+	renderBoard();
 }
 
-document.getElementById("clear-btn").addEventListener("click", handleClearAll);
+document.getElementById('clear-btn').addEventListener('click', handleClearAll);
 
 // ----------------------------------------------------------
 // TASK 8 — init
@@ -267,7 +436,36 @@ document.getElementById("clear-btn").addEventListener("click", handleClearAll);
 // Call init() at the bottom.
 
 function init() {
-  // your code here
+	// 1. load tasks from local storage or defaults
+	loadTasks();
+
+	// 2. render tasks
+	renderBoard();
+
+	// 3. load filter
+	const savedFilter = loadFilter();
+
+	// 4. update active filter button
+	const filterBtns = document.querySelectorAll('.filter-btn');
+	filterBtns.forEach((btn) => {
+		if (btn.dataset.filter === savedFilter) {
+			btn.classList.add('active');
+		} else {
+			btn.classList.remove('active');
+		}
+	});
+
+	// 5. apply filter
+	const taskCards = document.querySelectorAll('.task-card');
+	taskCards.forEach((card) => {
+		if (savedFilter === 'all') {
+			card.classList.remove('hidden');
+		} else if (card.dataset.priority === savedFilter) {
+			card.classList.remove('hidden');
+		} else {
+			card.classList.add('hidden');
+		}
+	});
 }
 
 // ----------------------------------------------------------
@@ -293,7 +491,48 @@ function init() {
 //       Apply the saved filter (update active button + show/hide cards)
 //
 // Write a comment: what other UI state might be worth persisting?
+// dark mode / light mode settings
 
+function handleFilterClick(event) {
+	// 1. get filter value & return if no filter found
+	const filterBtn = event.target.closest('.filter-btn');
+	if (!filterBtn) {
+		return;
+	}
+
+	// 2. Handle filter buttons UI
+	const filter = filterBtn.dataset.filter;
+	const filterBtns = document.querySelectorAll('.filter-btn');
+	filterBtns.forEach((btn) => btn.classList.remove('active'));
+	event.target.classList.add('active');
+
+	// 3. Handle task card UI
+	const taskCards = document.querySelectorAll('.task-card');
+	taskCards.forEach((card) => {
+		if (filter === 'all') {
+			card.classList.remove('hidden');
+		} else if (card.dataset.priority === filter) {
+			card.classList.remove('hidden');
+		} else {
+			card.classList.add('hidden');
+		}
+	});
+
+	// 4. save filter to local storage
+	saveFilter(filter);
+}
+
+document
+	.querySelector('.header-right')
+	.addEventListener('click', handleFilterClick);
+
+function saveFilter(filterValue) {
+	localStorage.setItem('taskFilter', filterValue);
+}
+
+function loadFilter() {
+	return localStorage.getItem('taskFilter') || 'all';
+}
 // ============================================================
 // START
 // ============================================================

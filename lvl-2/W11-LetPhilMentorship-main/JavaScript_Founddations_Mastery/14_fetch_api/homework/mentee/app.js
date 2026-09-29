@@ -15,15 +15,15 @@
 // CITY DATA — coordinates for each city in the dropdown
 // ============================================================
 const CITIES = {
-  "new-york": { name: "New York", lat: 40.71, lon: -74.01 },
-  london: { name: "London", lat: 51.51, lon: -0.13 },
-  tokyo: { name: "Tokyo", lat: 35.68, lon: 139.69 },
-  sydney: { name: "Sydney", lat: -33.87, lon: 151.21 },
-  paris: { name: "Paris", lat: 48.85, lon: 2.35 },
-  dubai: { name: "Dubai", lat: 25.2, lon: 55.27 },
+	'new-york': { name: 'New York', lat: 40.71, lon: -74.01 },
+	london: { name: 'London', lat: 51.51, lon: -0.13 },
+	tokyo: { name: 'Tokyo', lat: 35.68, lon: 139.69 },
+	sydney: { name: 'Sydney', lat: -33.87, lon: 151.21 },
+	paris: { name: 'Paris', lat: 48.85, lon: 2.35 },
+	dubai: { name: 'Dubai', lat: 25.2, lon: 55.27 },
 };
 
-const WEATHER_API = "https://api.open-meteo.com/v1/forecast";
+const WEATHER_API = 'https://api.open-meteo.com/v1/forecast';
 
 // ============================================================
 // WEATHER CODE HELPER
@@ -31,28 +31,28 @@ const WEATHER_API = "https://api.open-meteo.com/v1/forecast";
 // Open-Meteo uses WMO weather codes. This function converts
 // a code to a human-readable label and emoji.
 function getWeatherDescription(code) {
-  if (code === 0) {
-    return { label: "Clear sky", icon: "☀️" };
-  }
-  if (code >= 1 && code <= 3) {
-    return { label: "Partly cloudy", icon: "⛅" };
-  }
-  if (code >= 45 && code <= 48) {
-    return { label: "Foggy", icon: "🌫️" };
-  }
-  if (code >= 51 && code <= 67) {
-    return { label: "Rain", icon: "🌧️" };
-  }
-  if (code >= 71 && code <= 77) {
-    return { label: "Snow", icon: "❄️" };
-  }
-  if (code >= 80 && code <= 82) {
-    return { label: "Rain showers", icon: "🌦️" };
-  }
-  if (code >= 95 && code <= 99) {
-    return { label: "Thunderstorm", icon: "⛈️" };
-  }
-  return { label: "Unknown", icon: "🌡️" };
+	if (code === 0) {
+		return { label: 'Clear sky', icon: '☀️' };
+	}
+	if (code >= 1 && code <= 3) {
+		return { label: 'Partly cloudy', icon: '⛅' };
+	}
+	if (code >= 45 && code <= 48) {
+		return { label: 'Foggy', icon: '🌫️' };
+	}
+	if (code >= 51 && code <= 67) {
+		return { label: 'Rain', icon: '🌧️' };
+	}
+	if (code >= 71 && code <= 77) {
+		return { label: 'Snow', icon: '❄️' };
+	}
+	if (code >= 80 && code <= 82) {
+		return { label: 'Rain showers', icon: '🌦️' };
+	}
+	if (code >= 95 && code <= 99) {
+		return { label: 'Thunderstorm', icon: '⛈️' };
+	}
+	return { label: 'Unknown', icon: '🌡️' };
 }
 
 // ----------------------------------------------------------
@@ -70,7 +70,13 @@ function getWeatherDescription(code) {
 // This is the same helper from the live class.
 
 function safeFetch(url) {
-  // your code here
+	//1. Fetches data from a URL and safely handles HTTP errors.
+	return fetch(url).then((response) => {
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+		}
+		return response.json();
+	});
 }
 
 // ----------------------------------------------------------
@@ -95,31 +101,34 @@ function safeFetch(url) {
 // hideStatus()        → add "hidden" to #status-bar
 
 function getEl(id) {
-  return document.getElementById(id);
+	return document.getElementById(id);
 }
 
 function showSpinner(msg) {
-  // your code here
+	getEl('loading-spinner').classList.remove('hidden');
+	getEl('loading-message').textContent = msg;
 }
 
 function hideSpinner() {
-  // your code here
+	getEl('loading-spinner').classList.add('loading-spinner');
 }
 
 function showError(msg) {
-  // your code here
+	getEl('error-box').classList.remove('hidden');
+	getEl('error-message').textContent = msg;
 }
 
 function hideError() {
-  // your code here
+	getEl('error-box').classList.add('hidden');
 }
 
 function showStatus(msg, type) {
-  // your code here
+	getEl('status-bar').className = 'status-bar ' + (type || '');
+	getEl('status-message').textContent = msg;
 }
 
 function hideStatus() {
-  // your code here
+	getEl('status-bar').classList.add('hidden');
 }
 
 // ----------------------------------------------------------
@@ -134,11 +143,11 @@ function hideStatus() {
 //              + "&current_weather=true"
 
 function buildWeatherUrl(city) {
-  // your code here
+	return `${WEATHER_API}?latitude=${city.lat}&longitude=${city.lon}&current_weather=true`;
 }
 
 // Test it:
-// console.log(buildWeatherUrl(CITIES["london"]));
+console.log(buildWeatherUrl(CITIES['london']));
 // Expected: "https://api.open-meteo.com/v1/forecast?latitude=51.51&longitude=-0.13&current_weather=true"
 
 // ----------------------------------------------------------
@@ -171,7 +180,25 @@ function buildWeatherUrl(city) {
 // Return the card.
 
 function createWeatherCard(cityName, data) {
-  // your code here
+	const card = document.createElement('div');
+	card.classList.add('weather-card');
+	card.innerHTML = `
+    <p class="city-name">${cityName}</p>
+    <p class="coord-text">Lat: ${data.latitude} | Lon: ${data.longitude}</p>
+    <span class="temperature">${getWeatherDescription(data.weathercode).icon}</span>
+    <p class="temperature">${data.current_weather.temperature}°C</p>
+    <p class-"condition">${getWeatherDescription(data.weathercode).label}</p>
+    <div class="weather-stats">
+      <div>
+        <p class="stat-label">WIND SPEED</p>
+        <p class="stat-value">${data.current_weather.windspeed} km/h</p>
+      </div>
+      <div>
+        <p class="stat-label">WIND DIRECTION</p>
+        <p class="stat-value">${data.current_weather.winddirection}°</p>
+      </div>
+    </div>`;
+	return card;
 }
 
 // ----------------------------------------------------------
@@ -200,7 +227,33 @@ function createWeatherCard(cityName, data) {
 //      })
 
 function fetchWeatherForCity(cityKey) {
-  // your code here
+	const city = CITIES[cityKey];
+	// 1. Handle null city
+	if (city === null) {
+		showError('City not found');
+		return;
+	}
+
+	// 2. Valid city > get and show weather data
+	// Display loading card first
+	const loadingCard = document.createElement('div');
+	loadingCard.id = 'loading-' + cityKey;
+	loadingCard.classList.add('card-loading');
+	loadingCard.innerHTML = `<div class="spin"></div><span>Loading ${city.name}...</span>`;
+	getEl('weather-grid').appendChild(loadingCard);
+
+	// Build weather card and display
+	const url = buildWeatherUrl(city);
+	safeFetch(url)
+		.then(function (data) {
+			getEl('loading-' + cityKey)?.remove();
+			const weatherCard = createWeatherCard(city.name, data);
+			getEl('weather-grid').appendChild(weatherCard);
+		})
+		.catch(function (err) {
+			getEl('loading-' + cityKey)?.remove();
+			showError('Failed to fetch ' + city.name + ': ' + err.message);
+		});
 }
 
 // ----------------------------------------------------------
@@ -219,13 +272,22 @@ function fetchWeatherForCity(cityKey) {
 //     .addEventListener("click", handleFetchWeather)
 
 function handleFetchWeather() {
-  // your code here
+	const citySelectValue = getEl('city-select').value;
+
+	// 1. Handle null city
+	if (!citySelectValue) {
+		showError('Please select a city');
+		return;
+	}
+	hideError();
+
+	// 2. Valid city
+	fetchWeatherForCity(citySelectValue);
 }
 
 document
-  .getElementById("fetch-weather-btn")
-  .addEventListener("click", handleFetchWeather);
-
+	.getElementById('fetch-weather-btn')
+	.addEventListener('click', handleFetchWeather);
 // ----------------------------------------------------------
 // TASK 7 — fetchAllCities
 // ----------------------------------------------------------
@@ -248,12 +310,19 @@ document
 //     .addEventListener("click", fetchAllCities)
 
 function fetchAllCities() {
-  // your code here
+	getEl('weather-grid').innerHTML = '';
+	hideError();
+	showStatus('🌍 Fetching all cities...', '');
+	const allCityKeys = Object.keys(CITIES);
+	allCityKeys.forEach((key) => {
+		fetchWeatherForCity(key);
+	});
+	showStatus('✅ All cities loaded', 'success');
 }
 
 document
-  .getElementById("fetch-all-btn")
-  .addEventListener("click", fetchAllCities);
+	.getElementById('fetch-all-btn')
+	.addEventListener('click', fetchAllCities);
 
 // ----------------------------------------------------------
 // TASK 8 — clear all
@@ -263,8 +332,11 @@ document
 //   - hideError(), hideStatus()
 //   - Reset #city-select to ""
 
-document.getElementById("clear-btn").addEventListener("click", function () {
-  // your code here
+document.getElementById('clear-btn').addEventListener('click', function () {
+	getEl('weather-grid').innerHTML = '';
+	hideError();
+	hideStatus();
+	getEl('city-select').value = '';
 });
 
 // ----------------------------------------------------------
@@ -304,7 +376,38 @@ document.getElementById("clear-btn").addEventListener("click", function () {
 //
 // Write a comment: what does Promise.all do differently from
 // calling fetchWeatherForCity in a loop?
+// Promise.all calls safeFetch on all the cities without waiting for the previous fetch to complete.
+// Thus calling them all in parallel.
 
 function fetchAllCitiesParallel() {
-  // your code here
+	// 1. clear grid
+	getEl('weather-grid').innerHTML = ``;
+
+	// 2. show spinner
+	showSpinner('Fetching all cities...');
+
+	// 3. get all cities
+	Object.keys(CITIES);
+
+	// 4. build an array of fetch promises
+	const promises = Object.keys(CITIES).map(function (key) {
+		return safeFetch(buildWeatherUrl(CITIES[key])).then(function (data) {
+			return { key, data };
+		});
+	});
+
+	// 5. Promise all promises
+	Promise.all(promises)
+		.then(function (results) {
+			results.forEach(function (result) {
+				const city = CITIES[result.key];
+				const card = createWeatherCard(city.name, result.data);
+				getEl('weather-grid').appendChild(card);
+			});
+			showStatus('✅ All ' + results.length + ' cities loaded', 'success');
+		})
+		.catch(function (err) {
+			showError('One or more cities failed: ' + err.message);
+		})
+		.finally(() => hideSpinner());
 }

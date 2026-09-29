@@ -11,9 +11,9 @@ This dashboard is where you practice `fetch()` — the browser's built-in tool f
 Think of it like sending a messenger. You don't stand there waiting — you hand `fetch` the address, and it hands you back a **promise**: a placeholder for an answer that isn't ready yet.
 
 ```js
-fetch("https://api.github.com/users/octocat")
-  .then((response) => response.json())
-  .then((data) => console.log(data.name));
+fetch('https://api.github.com/users/octocat')
+	.then((response) => response.json())
+	.then((data) => console.log(data.name));
 ```
 
 ---
@@ -42,11 +42,11 @@ The response you get back isn't your JSON yet — it's a `Response` object wrapp
 
 ```js
 fetch(url)
-  .then((response) => response.json()) // step 1: unwrap the body
-  .then((data) => {
-    // step 2: your actual data
-    console.log(data);
-  });
+	.then((response) => response.json()) // step 1: unwrap the body
+	.then((data) => {
+		// step 2: your actual data
+		console.log(data);
+	});
 ```
 
 ### ⚠️ `response.ok` — fetch does NOT reject on a bad status
@@ -55,10 +55,10 @@ The single most important fact about `fetch`: the promise only rejects on a **ne
 
 ```js
 fetch(url).then((response) => {
-  if (!response.ok) {
-    throw new Error(`Request failed: ${response.status}`); // you throw it
-  }
-  return response.json();
+	if (!response.ok) {
+		throw new Error(`Request failed: ${response.status}`); // you throw it
+	}
+	return response.json();
 });
 ```
 
@@ -66,12 +66,12 @@ fetch(url).then((response) => {
 
 ```js
 fetch(url)
-  .then((response) => {
-    /* ... */
-  })
-  .catch((error) => {
-    console.log(`❌ ${error.message}`);
-  });
+	.then((response) => {
+		/* ... */
+	})
+	.catch((error) => {
+		console.log(`❌ ${error.message}`);
+	});
 ```
 
 ### Building URLs with query parameters
@@ -79,7 +79,7 @@ fetch(url)
 Search terms, filters, and page sizes get added to the end of a URL with `?` and `&` — build them with a template literal:
 
 ```js
-const term = "octocat";
+const term = 'octocat';
 fetch(`https://api.github.com/search/repositories?q=${term}&per_page=5`);
 ```
 
@@ -89,11 +89,11 @@ Two projects on this dashboard (🐙 GitHub, 📚 Code Concepts) fire a **second
 
 ```js
 fetch(firstURL)
-  .then((response) => response.json())
-  .then((data) => {
-    renderFirstThing(data);
-    fetchSecondThing(data.id); // ← only starts now
-  });
+	.then((response) => response.json())
+	.then((data) => {
+		renderFirstThing(data);
+		fetchSecondThing(data.id); // ← only starts now
+	});
 ```
 
 Why sequential instead of firing both at once? If the first request comes back empty, the second one is wasted — and against a rate-limited API, waste is expensive.
@@ -163,8 +163,8 @@ Real APIs don't fail the same way twice. Notice which project teaches which:
 
 4. **Reading a helper function's return shape wrong**
    ```js
-   contrast.onWhite ? "readable" : "not"; // ❌ always truthy — it's an object!
-   contrast.onWhite.passesAA ? "readable" : "not"; // ✅ the real answer
+   contrast.onWhite ? 'readable' : 'not'; // ❌ always truthy — it's an object!
+   contrast.onWhite.passesAA ? 'readable' : 'not'; // ✅ the real answer
    ```
 
 ---

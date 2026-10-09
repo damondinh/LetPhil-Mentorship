@@ -1,8 +1,13 @@
 import { elements } from '../dom.js';
-import { getJobsTest } from '../api.js';
+import { getJobListings } from '../api.js';
 
 let jobs = [];
 
-getJobsTest();
-
-export function initializeJobSearch() {}
+export async function initializeJobSearch() {
+	try {
+		jobs = await getJobListings();
+		console.log(jobs);
+	} catch (error) {
+		console.error('Failed to load jobs\n', error);
+	}
+}

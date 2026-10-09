@@ -1,23 +1,29 @@
 const JOB_API = 'http://localhost:3000/api/jobs';
 
-export async function getJobsTest() {
+export async function getJobListings() {
 	try {
 		const response = await axios.get(JOB_API);
 		const jobs = response.data.data;
 
-		jobs.forEach((job) => {
-			console.log(job.title);
-			console.log(job.company_name);
-			console.log(job.location);
-			console.log(job.url);
-		});
+		return jobs.map((job) => ({
+			id: job.slug,
+			title: job.title,
+			company: job.company_name,
+			location: job.location,
+			description: job.description,
+			remote: job.remote,
+			url: job.url,
+			tags: job.tags,
+			jobTypes: job.job_types,
+		}));
 	} catch (error) {
 		if (error.response && error.response.status === 404) {
-			console.log('Not found');
-		} else if (error.response) {
-			console.log(`Request failed: ${error.response.status}`);
+			console.error('Job listings not found');
+		} else if (error.respose) {
+			console.error('Request failed: ', error.response.status);
 		} else {
-			console.log(`Network error: ${error.message}`); // no response
+			console.error('Network error: ', error.message);
 		}
+		return [];
 	}
 }

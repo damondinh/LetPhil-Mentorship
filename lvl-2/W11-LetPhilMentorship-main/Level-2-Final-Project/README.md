@@ -27,10 +27,11 @@ Job Search
 - Search for jobs using Arbeitnow API
 - Filter job listings by location using a drop down menu
 - Filter job listings by title or company using a search bar with live searching
+- Save job listings to the job tracker using local storage
 
 ## Future work
 
-- Saving searched jobs to the tracker
+- Filtering job listings that have already been saved to local storage
 
 ## Prerequisites
 

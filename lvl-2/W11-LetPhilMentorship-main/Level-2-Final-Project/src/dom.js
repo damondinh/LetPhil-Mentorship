@@ -95,4 +95,5 @@ export const elements = {
 	detailsDescription: document.getElementById('detailsDescription'),
 	detailsMeta: document.getElementById('detailsMeta'),
 	detailsApply: document.getElementById('detailsApply'),
+	saveListingBtn: document.getElementById('saveListingBtn'),
 };

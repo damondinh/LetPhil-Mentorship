@@ -1,11 +1,12 @@
 import { elements } from '../dom.js';
 import { getJobListings } from '../api.js';
+import { loadJobs, saveJobs } from '../storage.js';
 
 let allJobs = [];
 let filteredJobs = [];
 let visibleCount = 10;
 let locations = [];
-
+let selectedJob;
 const JOBS_PER_BATCH = 10;
 
 async function loadJobListings(page) {
@@ -81,6 +82,7 @@ function renderJobListings() {
 
 	// 4. auto select first job on re render
 	if (filteredJobs.length > 0) {
+		selectedJob = filteredJobs[0];
 		updateJobDetail(filteredJobs[0]);
 		document.querySelector('.listing-card').classList.add('active');
 	} else {
@@ -134,7 +136,8 @@ function handleColumnClick(event) {
 	updateJobDetail(job);
 	elements.jobDetails.scrollTop = 0;
 
-	// 4. Handle save button clicked
+	// 4. Update selected job
+	selectedJob = job;
 }
 
 function updateJobDetail(job) {
@@ -173,8 +176,27 @@ function updateLocationFilter() {
 	elements.locationFilter.value = selectedLocation;
 }
 
-// TODO: Save job to local storage and show in job tracker
-function saveJob() {}
+function saveJobListing() {
+	if (selectedJob === null) {
+		return;
+	}
+
+	// 1. Get copy of local storage
+	const savedJobs = loadJobs();
+
+	// 2. create new job object
+	const newJobApplication = {
+		company: selectedJob.company.trim(),
+		position: selectedJob.title.trim(),
+		status: 'Applied',
+		date: Date.now(),
+		notes: selectedJob.location.trim(),
+	};
+
+	// 3. save to local storage
+	savedJobs.push(newJobApplication);
+	saveJobs(savedJobs);
+}
 
 export async function initializeJobSearch() {
 	if (elements.jobList) {
@@ -190,6 +212,9 @@ export async function initializeJobSearch() {
 	}
 	if (elements.locationFilter) {
 		elements.locationFilter.addEventListener('input', applyFilters);
+	}
+	if (elements.saveListingBtn) {
+		elements.saveListingBtn.addEventListener('click', saveJobListing);
 	}
 
 	await loadJobListings(1);

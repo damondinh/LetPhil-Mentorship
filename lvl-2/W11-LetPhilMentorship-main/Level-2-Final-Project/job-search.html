@@ -56,10 +56,24 @@
 							width="24px"
 							fill="#e3e3e3">
 							<path
-								d="M160-120q-33 0-56.5-23.5T80-200v-440q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v440q0 33-23.5 56.5T800-120H160Zm0-80h640v-440H160v440Zm240-520h160v-80H400v80ZM160-200v-440 440Z" />
+								d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h168q13-36 43.5-58t68.5-22q38 0 68.5 22t43.5 58h168q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm80-80h280v-80H280v80Zm0-160h400v-80H280v80Zm0-160h400v-80H280v80Zm221.5-198.5Q510-807 510-820t-8.5-21.5Q493-850 480-850t-21.5 8.5Q450-833 450-820t8.5 21.5Q467-790 480-790t21.5-8.5ZM200-200v-560 560Z" />
 						</svg>
 
-						<span>Jobs</span>
+						<span>Job Tracker</span>
+					</a>
+				</li>
+				<li>
+					<a href="job-search.html">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							height="24px"
+							viewBox="0 -960 960 960"
+							width="24px"
+							fill="#e3e3e3">
+							<path
+								d="M160-120q-33 0-56.5-23.5T80-200v-440q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v440q0 33-23.5 56.5T800-120H160Zm0-80h640v-440H160v440Zm240-520h160v-80H400v80ZM160-200v-440 440Z" />
+						</svg>
+						<span>Job Search</span>
 					</a>
 				</li>
 				<li>
@@ -81,6 +95,74 @@
 
 		<main>
 			<h1>Job Search</h1>
+			<!-- Job Listings Search Bar -->
+			<div class="container">
+				<div class="job-search-bar">
+					<input
+						id="jobSearchInput"
+						class="search-bar"
+						placeholder="Job title, company or keyword..." />
+					<select class="search-filter" id="locationFilter">
+						<option value="">All locations</option>
+					</select>
+				</div>
+				<div class="filter">
+					<span>Filters: </span>
+					<button class="filter-btn active" data-filter="all">All jobs</button>
+					<button class="filter-btn" data-filter="saved">Saved (0)</button>
+				</div>
+			</div>
+
+			<!-- Job Listings Components -->
+			<div class="job-search-layout">
+				<!-- Job Listings -->
+				<div id="listingsColumn" class="listing-column">
+					<span id="jobCount">0 jobs found</span>
+					<ul id="jobList"></ul>
+					<button
+						id="loadMoreBtn"
+						class="btn btn-secondary"
+						type="button"
+						hidden>
+						Load More Jobs
+					</button>
+				</div>
+
+				<!-- Job Listings Details -->
+				<div class="job-details container" id="jobDetails">
+					<div class="details-header">
+						<p id="detailsTitle" class="details-title">
+							Junior Software Engineer
+						</p>
+						<p id="detailsCompany" class="details-company">Example Tech</p>
+						<div>
+							<span id="detailsLocation" class="details-text">Perth, WA</span>
+							<span id="detailsRemote" class="details-text">Hybrid</span>
+						</div>
+					</div>
+
+					<div>
+						<p class="details-h2">Job Description</p>
+						<p id="detailsDescription" class="details-text">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+							Exercitationem quae suscipit nihil corporis eos modi minus sequi,
+							consequatur praesentium quidem tempore quod, in dolor voluptate
+							dolorum iure temporibus eius expedita?
+						</p>
+					</div>
+					<div>
+						<p class="details-h2">Skills</p>
+						<div id="detailsMeta" class="details-meta">
+							<span class="badge listing-badge">Javascript</span>
+							<span class="badge listing-badge">React</span>
+						</div>
+					</div>
+					<div class="actions">
+						<button class="btn btn-primary">Save</button>
+						<button id="detailsApply" class="btn btn-secondary">Apply</button>
+					</div>
+				</div>
+			</div>
 		</main>
 	</body>
 </html>

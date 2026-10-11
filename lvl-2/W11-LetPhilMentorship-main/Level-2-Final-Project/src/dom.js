@@ -78,4 +78,21 @@ export const elements = {
 	contactSubject: document.getElementById('contactSubject'),
 	contactMessage: document.getElementById('contactMessage'),
 	contactSubmitButton: document.getElementById('contactSubmitButton'),
+
+	// Job Search Filters
+	jobSearchInput: document.getElementById('jobSearchInput'),
+	locationFilter: document.getElementById('locationFilter'),
+	// Job Search Listings
+	jobList: document.getElementById('jobList'),
+	jobCount: document.getElementById('jobCount'),
+	loadMoreBtn: document.getElementById('loadMoreBtn'),
+	// Job Search Details
+	jobDetails: document.getElementById('jobDetails'),
+	detailsTitle: document.getElementById('detailsTitle'),
+	detailsCompany: document.getElementById('detailsCompany'),
+	detailsLocation: document.getElementById('detailsLocation'),
+	detailsRemote: document.getElementById('detailsRemote'),
+	detailsDescription: document.getElementById('detailsDescription'),
+	detailsMeta: document.getElementById('detailsMeta'),
+	detailsApply: document.getElementById('detailsApply'),
 };

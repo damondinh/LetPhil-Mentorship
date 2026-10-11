@@ -128,3 +128,31 @@
 		display: none;
 	}
 }
+
+/* JOB SEARCH PAGE LAYOUT */
+.job-search-bar {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+}
+
+.job-search-bar .search-bar {
+	flex-grow: 10;
+}
+.job-search-bar .search-filter {
+	flex-grow: 1;
+}
+.job-search-layout {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	gap: 20px;
+	height: calc(100vh - 245px);
+	min-height: 0;
+}
+
+#job-details {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	gap: 20px;
+}

@@ -199,3 +199,16 @@ select {
 .coming-soon {
 	text-align: center;
 }
+/* Hide scroll bar */
+/* .job-details::-webkit-scrollbar {
+	display: none;
+}
+.job-details {
+	scrollbar-width: none;
+}
+#jobList::-webkit-scrollbar {
+	display: none;
+}
+.listing-column {
+	scrollbar-width: none;
+} */

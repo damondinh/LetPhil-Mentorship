@@ -18,5 +18,9 @@
 		"axios": "^1.20.0",
 		"cors": "^2.8.6",
 		"express": "^5.2.1"
+	},
+	"devDependencies": {
+		"concurrently": "^10.0.6",
+		"live-server": "^1.2.2"
 	}
 }

@@ -20,19 +20,24 @@ function submitMessage() {
 	saveContactMessage(contactMessages);
 
 	// 2. display confirmation message
-	alert(`Thank you, ${name}! Your message has been sent.`);
+	alert(
+		`Thank you, ${name}! Your message has been saved to the local storage.`,
+	);
 
 	// 3. clear inputs
-	nameInput.value = '';
-	emailInput.value = '';
-	subjectInput.value = '';
-	messageTextArea.value = '';
+	elements.contactName.value = '';
+	elements.contactEmail.value = '';
+	elements.contactSubject.value = '';
+	elements.contactMessage.value = '';
 }
 
 export function initializeContactUs() {
 	contactMessages = loadContactMessages();
 
 	if (elements.contactUsForm) {
-		elements.contactUsForm.addEventListener('submit', submitMessage);
+		elements.contactUsForm.addEventListener('submit', (event) => {
+			event.preventDefault();
+			submitMessage();
+		});
 	}
 }
